@@ -1,9 +1,9 @@
 package by.gsu.epamlab;
 
 public class Subject {
-    private final String name;
+    private String name;
     private Material material;
-    private final double volume;
+    private double volume;
 
     public Subject(String name, Material material, double volume){
         this.name = name;
