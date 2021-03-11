@@ -1,19 +1,19 @@
 package by.gsu.epamlab;
 
-public enum Material {
-    STEEL ("steel", 7850.0),
-    COPPER ("copper", 8500.0);
+import java.util.Locale;
 
-    private final String name;
+public enum Material {
+    STEEL (7850.0),
+    COPPER ( 8500.0);
+
     private final double density;
 
-    Material(String name, double density) {
-        this.name = name;
+    Material(double density) {
         this.density = density;
     }
 
     Material(){
-        this(null, 0);
+        this(0);
     }
 
     public double getDensity() {
@@ -22,6 +22,6 @@ public enum Material {
 
     @Override
     public String toString() {
-        return name + ";" + density;
+        return name().toLowerCase() + ";" + density;
     }
 }
