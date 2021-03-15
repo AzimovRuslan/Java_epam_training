@@ -22,13 +22,14 @@ public class Runner {
 
             showArray(purchases);
 
-            int meanCost = 0;
+            double meanCost = 0;
             int totalCostMonday = 0;
             int maxCost = 0;
+            int sum = 0;
             Purchase maxPurchase = new Purchase();
 
             for(Purchase purchase : purchases){
-                meanCost += purchase.getCost();
+                sum += purchase.getCost();
 
                 if(purchase.getWeekDay() == WeekDay.values()[1]){
                     totalCostMonday += purchase.getCost();
@@ -39,16 +40,26 @@ public class Runner {
                     maxPurchase = purchase;
                 }
             }
-            System.out.println("mean coast = " + Utilities.convertMeanCost(meanCost));
+
+            meanCost = sum * 100.0 / purchases.length / 10000;
+            System.out.printf("mean coast = %.3f rubles%n", meanCost);
             System.out.println("total cost monday = " + Utilities.convertMoney(totalCostMonday));
             System.out.println("purchase with max cost = " + maxPurchase);
 
             Arrays.sort(purchases);
             showArray(purchases);
 
-            Purchase searchPurchase = purchases[5];
-            int retPurchase = Arrays.binarySearch(purchases, searchPurchase);
-            System.out.println("purchase wih number equalled to 5 = " + purchases[retPurchase]);
+            Purchase purchase = new Purchase(41, 0, WeekDay.values()[0]);
+
+            int retPurchase = Arrays.binarySearch(purchases, purchase);
+
+            if(retPurchase < 0){
+                System.out.println("purchase is not found");
+            }
+            else{
+                System.out.println("purchase wih number equalled to 5 = " + purchases[retPurchase]);
+            }
+
         }catch (FileNotFoundException e){
             System.err.println("Input file is not found");
         }
