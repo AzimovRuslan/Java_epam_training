@@ -49,7 +49,7 @@ public class Runner {
             Arrays.sort(purchases);
             showArray(purchases);
 
-            Purchase purchase = new Purchase(41, 0, WeekDay.values()[0]);
+            Purchase purchase = new Purchase(5, 0, WeekDay.values()[0]);
 
             int retPurchase = Arrays.binarySearch(purchases, purchase);
 

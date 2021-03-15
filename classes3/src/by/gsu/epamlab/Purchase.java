@@ -3,9 +3,9 @@ package by.gsu.epamlab;
 public class Purchase implements Comparable<Purchase> {
     public static final String PRODUCT_NAME = "Book";
     public static final int PRICE_BOOK = 1400;
-    private final int numberOfPurchasedUnits;
-    private final double discountPercent;
-    private final WeekDay weekDay;
+    private int numberOfPurchasedUnits;
+    private double discountPercent;
+    private WeekDay weekDay;
 
     public Purchase(int numberOfPurchasedUnits, double discountPercent, WeekDay weekDay){
         this.numberOfPurchasedUnits = numberOfPurchasedUnits;
