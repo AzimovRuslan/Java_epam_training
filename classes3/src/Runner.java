@@ -20,18 +20,18 @@ public class Runner {
                 purchases[i] = new Purchase(number, percent, WeekDay.values()[day]);
             }
 
-            showArray(purchases);
+            printPurchases(purchases);
 
             double meanCost = 0;
             int totalCostMonday = 0;
             int maxCost = 0;
-            int sum = 0;
+            int totalCost = 0;
             Purchase maxPurchase = new Purchase();
 
             for(Purchase purchase : purchases){
-                sum += purchase.getCost();
+                totalCost += purchase.getCost();
 
-                if(purchase.getWeekDay() == WeekDay.values()[1]){
+                if(purchase.getDay() == WeekDay.values()[1]){
                     totalCostMonday += purchase.getCost();
                 }
 
@@ -41,13 +41,15 @@ public class Runner {
                 }
             }
 
-            meanCost = sum * 100.0 / purchases.length / 10000;
+            if(purchases.length > 0)
+                meanCost = totalCost * 100.0 / purchases.length / 10000;
+
             System.out.printf("mean coast = %.3f rubles%n", meanCost);
             System.out.println("total cost monday = " + Utilities.convertMoney(totalCostMonday));
             System.out.println("purchase with max cost = " + maxPurchase);
 
             Arrays.sort(purchases);
-            showArray(purchases);
+            printPurchases(purchases);
 
             Purchase purchase = new Purchase(5, 0, WeekDay.values()[0]);
 
@@ -59,13 +61,12 @@ public class Runner {
             else{
                 System.out.println("purchase wih number equalled to 5 = " + purchases[retPurchase]);
             }
-
         }catch (FileNotFoundException e){
             System.err.println("Input file is not found");
         }
     }
 
-    private static void showArray(Purchase[] purchases){
+    private static void printPurchases(Purchase[] purchases){
         System.out.println(Purchase.PRODUCT_NAME + "\n" + Utilities.convertMoney(Purchase.PRICE_BOOK));
         for(Purchase purchase : purchases){
             System.out.println(purchase);

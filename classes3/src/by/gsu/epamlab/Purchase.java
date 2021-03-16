@@ -3,14 +3,14 @@ package by.gsu.epamlab;
 public class Purchase implements Comparable<Purchase> {
     public static final String PRODUCT_NAME = "Book";
     public static final int PRICE_BOOK = 1400;
-    private int numberOfPurchasedUnits;
-    private double discountPercent;
-    private WeekDay weekDay;
+    private int number;
+    private double percent;
+    private WeekDay day;
 
-    public Purchase(int numberOfPurchasedUnits, double discountPercent, WeekDay weekDay){
-        this.numberOfPurchasedUnits = numberOfPurchasedUnits;
-        this.discountPercent = discountPercent;
-        this.weekDay = weekDay;
+    public Purchase(int number, double percent, WeekDay day){
+        this.number = number;
+        this.percent = percent;
+        this.day = day;
     }
 
     public Purchase(){
@@ -18,24 +18,24 @@ public class Purchase implements Comparable<Purchase> {
     }
 
     public int getCost(){
-        return (int)Math.round(PRICE_BOOK * numberOfPurchasedUnits * ((100.0 - discountPercent) / 100));
+        return (int)Math.round(PRICE_BOOK * number * ((100.0 - percent) / 100));
     }
 
-    public int getNumberOfPurchasedUnits() {
-        return numberOfPurchasedUnits;
+    public int getNumber() {
+        return number;
     }
 
-    public WeekDay getWeekDay() {
-        return weekDay;
+    public WeekDay getDay() {
+        return day;
     }
 
     @Override
     public String toString() {
-        return numberOfPurchasedUnits + ";" + discountPercent + ";" + weekDay + ";" + Utilities.convertMoney(getCost());
+        return number + ";" + percent + ";" + day + ";" + Utilities.convertMoney(getCost());
     }
 
     @Override
     public int compareTo(Purchase purchase) {
-        return numberOfPurchasedUnits - purchase.getNumberOfPurchasedUnits();
+        return number - purchase.getNumber();
     }
 }
