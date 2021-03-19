@@ -4,21 +4,33 @@ import java.util.Scanner;
 
 public class PercentDiscountPurchase extends Purchase{
     private static final int EXCESS_AMOUNT = 3;
+    private double percentDiscount;
+
 
     public PercentDiscountPurchase(Scanner scanner){
         super(scanner);
+        this.percentDiscount = scanner.nextDouble();
     }
 
     @Override
     public Byn getCost() {
-        int cost = 0;
+        Byn cost = super.getCost();
         if(getNumber() > EXCESS_AMOUNT){
-            double percentDiscount = 3.1;
-            cost = (int)Math.round(getPrice() * getNumber() * (1.0 - percentDiscount / 100));
+            cost = cost.multiplicationValue(1.0 - percentDiscount / 100);
         }
         else {
-            cost = getPrice() * getNumber();
+            cost = getCost();
         }
-        return new Byn(cost);
+        return cost;
+    }
+
+    @Override
+    protected String fieldsToString() {
+        return super.fieldsToString();
+    }
+
+    public String toString() {
+        return fieldsToString() + ";" + percentDiscount + ";" + getCost();
     }
 }
+

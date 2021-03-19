@@ -1,33 +1,34 @@
 package by.gsu.epamlab;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Purchase{
     private String name;
-    private int price;
+    private Byn price;
     private int number;
 
-    public Purchase(String name, int price, int number){
+    public Purchase(String name, Byn price, int number){
         this.name = name;
         this.price = price;
         this.number = number;
     }
 
     public Purchase(){
-        this(null, 0, 0);
+        this(null, new Byn(0), 0);
     }
 
     public Purchase(Scanner sc) {
         name = sc.next();
-        price = sc.nextInt();
+        price = new Byn(sc.nextInt());
         number = sc.nextInt();
     }
 
     public Byn getCost(){
-        return new Byn(price * number);
+        return new Byn(price).multiplicationValue(number);
     }
 
-    public int getPrice() {
+    public Byn getPrice() {
         return price;
     }
 
@@ -35,16 +36,24 @@ public class Purchase{
         return number;
     }
 
-    @Override
-    public String toString() {
-        return name + ";" + price + ";" + number + ";" + getCost();
+    public String getName() {
+        return name;
+    }
+
+    protected String fieldsToString(){
+        return name + ";" + price + ";" + number;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Purchase purchase = (Purchase) object;
-        return price == purchase.price;
+    public String toString() {
+        return fieldsToString() + ";" + getCost();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Purchase purchase = (Purchase) o;
+        return number == purchase.number && Objects.equals(name, purchase.name) && Objects.equals(price, purchase.price);
     }
 }
