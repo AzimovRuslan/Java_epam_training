@@ -23,8 +23,8 @@ public class Purchase{
         number = sc.nextInt();
     }
 
-    public int getCost(){
-        return price * number;
+    public Byn getCost(){
+        return new Byn(price * number);
     }
 
     public int getPrice() {
@@ -37,7 +37,7 @@ public class Purchase{
 
     @Override
     public String toString() {
-        return name + ";" + price + ";" + number + ";" + new Byn(getCost());
+        return name + ";" + price + ";" + number + ";" + getCost();
     }
 
     @Override

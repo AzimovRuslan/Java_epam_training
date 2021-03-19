@@ -1,4 +1,3 @@
-import by.gsu.epamlab.Byn;
 import by.gsu.epamlab.Purchase;
 import by.gsu.epamlab.PurchasesFactory;
 
@@ -17,7 +16,7 @@ public class Runner {
                 purchases[i] = PurchasesFactory.getPurchaseFromFactory(sc);
                 System.out.println(purchases[i]);
 
-                if(maxPurchase.getCost() < purchases[i].getCost()){
+                if(maxPurchase.getCost().sumValue(0) < purchases[i].getCost().sumValue(0)){
                     maxPurchase = purchases[i];
                 }
 
