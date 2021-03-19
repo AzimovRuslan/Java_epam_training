@@ -7,28 +7,36 @@ public class Byn implements Comparable<Byn>{
         this.financialValue = financialValue;
     }
 
-    public Byn(){
+    public Byn() {
         this(0);
     }
 
     public Byn(Byn byn) {
-        this.financialValue = byn.financialValue;
+        this(byn.financialValue);
     }
 
-    public Byn sumValue(int value){
-        return new Byn(financialValue += value);
+    public Byn getCost(int number) {
+        return new Byn(financialValue * number);
     }
 
-    public Byn subtractionValue(int value){
-        return new Byn(financialValue -= value);
+    public Byn sumValue(Byn byn) {
+        financialValue += byn.financialValue;
+        return this;
     }
 
-    public Byn multiplicationValue(int value){
-        return new Byn(financialValue *= value);
+    public Byn subtractionValue(Byn byn) {
+        financialValue -= byn.financialValue;
+        return this;
     }
 
-    public Byn multiplicationValue(double value){
-        return new Byn(financialValue *= value);
+    public Byn multiplicationValue(int value) {
+        financialValue *= value;
+        return this;
+    }
+
+    public Byn multiplicationValue(double value) {
+        financialValue *= value;
+        return this;
     }
 
     @Override

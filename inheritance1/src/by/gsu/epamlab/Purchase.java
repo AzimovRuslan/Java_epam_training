@@ -8,13 +8,13 @@ public class Purchase{
     private Byn price;
     private int number;
 
-    public Purchase(String name, Byn price, int number){
+    public Purchase(String name, Byn price, int number) {
         this.name = name;
         this.price = price;
         this.number = number;
     }
 
-    public Purchase(){
+    public Purchase() {
         this(null, new Byn(0), 0);
     }
 
@@ -24,23 +24,15 @@ public class Purchase{
         number = sc.nextInt();
     }
 
-    public Byn getCost(){
-        return new Byn(price).multiplicationValue(number);
-    }
-
-    public Byn getPrice() {
-        return price;
+    public Byn getCost() {
+        return new Byn(price).getCost(number);
     }
 
     public int getNumber() {
         return number;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    protected String fieldsToString(){
+    protected String fieldsToString() {
         return name + ";" + price + ";" + number;
     }
 

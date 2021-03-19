@@ -3,28 +3,20 @@ package by.gsu.epamlab;
 import java.util.Scanner;
 
 public class PriceDiscountPurchase extends Purchase{
-    private double discount;
+    private final Byn discount;
     
     public PriceDiscountPurchase(Scanner scanner){
         super(scanner);
-        this.discount = scanner.nextDouble();
-    }
-
-    public double getDiscount() {
-        return discount;
+        this.discount = new Byn(scanner.nextInt());
     }
 
     @Override
     public Byn getCost() {
-        return (super.getPrice().subtractionValue((int)Math.round(discount))).multiplicationValue(super.getNumber());
+        return super.getCost().subtractionValue(discount.multiplicationValue(getNumber()));
     }
 
     @Override
     protected String fieldsToString() {
-        return super.fieldsToString();
-    }
-
-    public String toString() {
-        return fieldsToString() + ";" + discount + ";" + getCost();
+        return super.fieldsToString() + ";" + discount;
     }
 }
