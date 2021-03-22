@@ -12,7 +12,7 @@ public class PriceDiscountPurchase extends Purchase{
 
     @Override
     public Byn getCost() {
-        return super.getCost().subtractionValue(discount.multiplicationValue(getNumber()));
+        return super.getCost().sub(discount.mul(getNumber()));
     }
 
     @Override

@@ -19,22 +19,22 @@ public class Byn implements Comparable<Byn>{
         return new Byn(financialValue * number);
     }
 
-    public Byn sumValue(Byn byn) {
+    public Byn add(Byn byn) {
         financialValue += byn.financialValue;
         return this;
     }
 
-    public Byn subtractionValue(Byn byn) {
+    public Byn sub(Byn byn) {
         financialValue -= byn.financialValue;
         return this;
     }
 
-    public Byn multiplicationValue(int value) {
+    public Byn mul(int value) {
         financialValue *= value;
         return this;
     }
 
-    public Byn multiplicationValue(double value) {
+    public Byn mul(double value) {
         financialValue *= value;
         return this;
     }
@@ -45,10 +45,10 @@ public class Byn implements Comparable<Byn>{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Byn byn = (Byn) o;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Byn byn = (Byn) object;
         return financialValue == byn.financialValue;
     }
 

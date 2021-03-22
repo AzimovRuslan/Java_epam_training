@@ -10,10 +10,10 @@ public class Runner {
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(new FileReader("src/in.txt"))) {
             sc.useLocale(Locale.ENGLISH);
-
-            Purchase[] purchases = new Purchase[6];
+            final int PURCHASES_NUMBER = 6;
+            Purchase[] purchases = new Purchase[PURCHASES_NUMBER];
             Purchase maxPurchase = new Purchase();
-            boolean flag = true;
+            boolean areEqual = true;
 
             for (int i = 0; i < purchases.length; i++) {
                 purchases[i] = PurchasesFactory.getPurchaseFromFactory(sc);
@@ -26,12 +26,12 @@ public class Runner {
                 Purchase firstPurchase = purchases[0];
 
                 if (!firstPurchase.equals(purchases[i])) {
-                    flag = false;
+                    areEqual = false;
                 }
             }
             System.out.println("Max cost purchase = " + maxPurchase);
 
-            if (flag) {
+            if (areEqual) {
                 System.out.println("all purchases are equal");
             } else {
                 System.out.println("not all purchases are equal");
@@ -42,4 +42,5 @@ public class Runner {
         }
     }
 }
+
 

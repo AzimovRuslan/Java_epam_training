@@ -15,7 +15,7 @@ public class PercentDiscountPurchase extends Purchase{
     public Byn getCost() {
         Byn cost = super.getCost();
         if (getNumber() > EXCESS_AMOUNT) {
-            cost = cost.multiplicationValue(1.0 - percentDiscount / 100);
+            cost = cost.mul(1.0 - percentDiscount / 100);
         }
         else {
             cost = getCost();

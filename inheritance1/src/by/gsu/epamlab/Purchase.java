@@ -42,10 +42,11 @@ public class Purchase{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Purchase purchase = (Purchase) o;
-        return number == purchase.number && Objects.equals(name, purchase.name) && Objects.equals(price, purchase.price);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null ) return false;
+        if(!(object instanceof Purchase)) return false;
+        Purchase purchase = (Purchase) object;
+        return Objects.equals(name, purchase.name) && Objects.equals(price, purchase.price);
     }
 }
