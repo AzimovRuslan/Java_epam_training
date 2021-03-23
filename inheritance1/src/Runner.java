@@ -37,6 +37,7 @@ public class Runner {
                 System.out.println("not all purchases are equal");
             }
 
+            
         } catch (FileNotFoundException e) {
             System.err.println("File not fount");
         }
