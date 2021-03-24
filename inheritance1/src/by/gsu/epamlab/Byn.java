@@ -15,10 +15,6 @@ public class Byn implements Comparable<Byn>{
         this(byn.kopecks);
     }
 
-//    public Byn getCost(int number) {
-//        return new Byn(kopecks * number);
-//    }
-
     public Byn add(Byn byn) {
         kopecks += byn.kopecks;
         return this;
