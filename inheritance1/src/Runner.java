@@ -23,10 +23,14 @@ public class Runner {
                     maxPurchase = purchases[i];
                 }
 
-                Purchase firstPurchase = purchases[0];
+//                Purchase firstPurchase = purchases[0];
 
-                if (!firstPurchase.equals(purchases[i])) {
-                    areEqual = false;
+//                if (!firstPurchase.equals(purchases[i])) {
+//                    areEqual = false;
+//                }
+
+                if(areEqual){
+                    areEqual = purchases[i].equals(purchases[0]);
                 }
             }
             System.out.println("Max cost purchase = " + maxPurchase);

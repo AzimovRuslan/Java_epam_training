@@ -1,10 +1,10 @@
 package by.gsu.epamlab;
 
 public class Byn implements Comparable<Byn>{
-    private int financialValue;
+    private int kopecks;
 
     public Byn(int financialValue){
-        this.financialValue = financialValue;
+        this.kopecks = financialValue;
     }
 
     public Byn() {
@@ -12,36 +12,36 @@ public class Byn implements Comparable<Byn>{
     }
 
     public Byn(Byn byn) {
-        this(byn.financialValue);
+        this(byn.kopecks);
     }
 
-    public Byn getCost(int number) {
-        return new Byn(financialValue * number);
-    }
+//    public Byn getCost(int number) {
+//        return new Byn(kopecks * number);
+//    }
 
     public Byn add(Byn byn) {
-        financialValue += byn.financialValue;
+        kopecks += byn.kopecks;
         return this;
     }
 
     public Byn sub(Byn byn) {
-        financialValue -= byn.financialValue;
+        kopecks -= byn.kopecks;
         return this;
     }
 
     public Byn mul(int value) {
-        financialValue *= value;
+        kopecks *= value;
         return this;
     }
 
     public Byn mul(double value, RoundMethod roundMethod, int d) {
-        financialValue = roundMethod.round(financialValue * value, d);
+        kopecks = roundMethod.round(kopecks * value, d);
         return this;
     }
 
     @Override
     public String toString() {
-        return String.format("%d.%02d", financialValue / 100, financialValue % 100);
+        return String.format("%d.%02d", kopecks / 100, kopecks % 100);
     }
 
     @Override
@@ -49,13 +49,11 @@ public class Byn implements Comparable<Byn>{
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Byn byn = (Byn) object;
-        return financialValue == byn.financialValue;
+        return kopecks == byn.kopecks;
     }
 
     @Override
     public int compareTo(Byn byn) {
-        return financialValue - byn.financialValue;
+        return kopecks - byn.kopecks;
     }
-
-
 }

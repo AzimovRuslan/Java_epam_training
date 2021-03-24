@@ -25,7 +25,7 @@ public class Purchase{
     }
 
     public Byn getCost() {
-        return new Byn(price).getCost(number);
+        return new Byn(price).mul(number);
     }
 
     public int getNumber() {
