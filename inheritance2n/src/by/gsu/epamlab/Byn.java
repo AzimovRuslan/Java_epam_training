@@ -7,7 +7,7 @@ public class Byn {
         this.kopecks = kopecks;
     }
 
-    public Byn(Byn byn){
+    public Byn(Byn byn) {
         this(byn.kopecks);
     }
 
@@ -15,7 +15,7 @@ public class Byn {
         return kopecks;
     }
 
-    public Byn add(int value){
+    public Byn add(int value) {
         return new Byn(kopecks += value);
     }
 
@@ -31,8 +31,8 @@ public class Byn {
         return new Byn(kopecks /= value);
     }
 
-    public Byn mul(double value, RoundMethod roundMethod, int d) {
-        return new Byn(roundMethod.round(kopecks * value, d));
+    public Byn roundByn(RoundMethod roundMethod, int d) {
+        return new Byn(roundMethod.round(kopecks , d));
     }
 
     @Override

@@ -4,12 +4,12 @@ public class Product {
     private String name;
     private Byn price;
 
-    public Product(String name, Byn price){
+    public Product(String name, Byn price) {
         this.name = name;
         this.price = price;
     }
 
-    public Product(){
+    public Product() {
         this(null, null);
     }
 

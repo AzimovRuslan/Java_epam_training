@@ -25,7 +25,8 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase>{
 
     public Byn getCost(){
         Byn originalCost = product.getPrice().mul(number);
-        return getFullCost(originalCost);
+        Byn finalCost = getFullCost(originalCost);
+        return finalCost.roundByn(RoundMethod.FLOOR, 2);
     }
 
     @Override

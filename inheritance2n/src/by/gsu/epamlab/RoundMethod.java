@@ -7,19 +7,19 @@ public enum RoundMethod {
         }
     },
     FLOOR {
-        double roundFunction(double d){
+        double roundFunction(double d) {
             return Math.floor(d);
         }
     },
     CEIL {
-        double roundFunction(double d){
+        double roundFunction(double d) {
             return Math.ceil(d);
         }
     };
     abstract double roundFunction(double value);
 
-    public int round(double value, int d){
-        int[] tenPow = {1, 2, 3, 4, 5, 6, 7, 8};
-        return (int)roundFunction(value / Math.pow(10, tenPow[d]) * Math.pow(10, tenPow[d]));
+    public int round(double value, int d) {
+        int[] tenPow = {1, 10, 100, 1000, 10000};
+        return (int)roundFunction(value / tenPow[d]) * tenPow[d];
     }
 }
