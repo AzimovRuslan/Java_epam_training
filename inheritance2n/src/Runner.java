@@ -26,7 +26,7 @@ public class Runner {
 
         printArray(purchases);
 
-        System.out.println("Minimum cost = " + purchases[0].getCost());
+        System.out.println("Minimum cost = " + purchases[purchases.length - 1].getCost());
 
         AbstractPurchase key = new TransportPurchase(product, 2, new Byn(140));
         int pos = Arrays.binarySearch(purchases, key);

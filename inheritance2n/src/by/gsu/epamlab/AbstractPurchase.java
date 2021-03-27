@@ -40,6 +40,6 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase>{
 
     @Override
     public int compareTo(AbstractPurchase purchase) {
-        return getCost().compareTo(purchase.getCost());
+        return purchase.getCost().compareTo(getCost());
     }
 }
