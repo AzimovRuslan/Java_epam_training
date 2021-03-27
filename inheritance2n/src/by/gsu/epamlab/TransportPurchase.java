@@ -1,9 +1,9 @@
 package by.gsu.epamlab;
 
 public class TransportPurchase extends AbstractPurchase{
-    private final int transportCost;
+    private final Byn transportCost;
 
-    public TransportPurchase(Product product, int number, int transportCost) {
+    public TransportPurchase(Product product, int number, Byn transportCost) {
         super(product, number);
         this.transportCost = transportCost;
     }
@@ -14,7 +14,7 @@ public class TransportPurchase extends AbstractPurchase{
     }
 
     @Override
-    public int compareTo(AbstractPurchase o) {
-        return this.getCost().getKopecks() - o.getCost().getKopecks();
+    public String fieldsToString() {
+        return super.fieldsToString() + ";" + transportCost;
     }
 }

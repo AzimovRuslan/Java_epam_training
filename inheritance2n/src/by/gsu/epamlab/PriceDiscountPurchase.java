@@ -10,11 +10,11 @@ public class PriceDiscountPurchase extends AbstractPurchase{
 
     @Override
     protected Byn getFullCost(Byn originalCost) {
-        return getProduct().getPrice().sub(discount).mul(getNumber());
+        return originalCost.sub(discount.mul(getNumber()));
     }
 
     @Override
-    public int compareTo(AbstractPurchase o) {
-        return this.getCost().getKopecks() - o.getCost().getKopecks();
+    public String fieldsToString() {
+        return super.fieldsToString() + ";" + discount;
     }
 }

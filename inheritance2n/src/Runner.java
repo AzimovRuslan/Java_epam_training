@@ -15,8 +15,8 @@ public class Runner {
                 new PriceDiscountPurchase(product, 3, new Byn(20)),
                 new PercentDiscountPurchase(product, 3, 5.125),
                 new PercentDiscountPurchase(product, 6, 6.2),
-                new TransportPurchase(product, 2, 140),
-                new TransportPurchase(product, 8, 100),
+                new TransportPurchase(product, 2, new Byn(140)),
+                new TransportPurchase(product, 8, new Byn(100)),
                 new PriceDiscountPurchase(product, 9, new Byn(20))
         };
 
@@ -26,15 +26,9 @@ public class Runner {
 
         printArray(purchases);
 
-        AbstractPurchase minPurchase = purchases[0];
-        for(AbstractPurchase purchase : purchases) {
-            if (purchase.getCost().getKopecks() < minPurchase.getCost().getKopecks()) {
-                minPurchase = purchase;
-            }
-        }
-        System.out.println("Minimum cost = " + minPurchase.getCost());
+        System.out.println("Minimum cost = " + purchases[0].getCost());
 
-        AbstractPurchase key = new TransportPurchase(product, 2, 140);
+        AbstractPurchase key = new TransportPurchase(product, 2, new Byn(140));
         int pos = Arrays.binarySearch(purchases, key);
         if (pos >= 0) {
             System.out.println("Purchase with cost equal to 5.00 BYN = " + purchases[pos]);

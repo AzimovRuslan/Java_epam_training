@@ -1,7 +1,7 @@
 package by.gsu.epamlab;
 
 public abstract class AbstractPurchase implements Comparable<AbstractPurchase>{
-    private Product product;
+    private final Product product;
     private int number;
 
     public AbstractPurchase(Product product, int number){
@@ -29,8 +29,17 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase>{
         return finalCost.roundByn(RoundMethod.FLOOR, 2);
     }
 
+    public String fieldsToString() {
+        return product + ";" + number;
+    }
+
     @Override
     public String toString() {
-        return product + ";" + number + ";" + getCost();
+        return fieldsToString() + ";" + getCost();
+    }
+
+    @Override
+    public int compareTo(AbstractPurchase purchase) {
+        return getCost().compareTo(purchase.getCost());
     }
 }

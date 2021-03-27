@@ -13,15 +13,13 @@ public class PercentDiscountPurchase extends AbstractPurchase{
     protected Byn getFullCost(Byn originalCost) {
         Byn cost = originalCost;
         if (getNumber() > EXCESS_AMOUNT) {
-            cost = originalCost.mul(1.0 - percentDiscount / 100);
+            cost = originalCost.mul(1.0 - percentDiscount / 100, RoundMethod.ROUND, 2);
         }
         return cost;
     }
 
-
-
     @Override
-    public int compareTo(AbstractPurchase o) {
-        return this.getCost().getKopecks() - o.getCost().getKopecks();
+    public String fieldsToString() {
+        return super.fieldsToString() + ";" + percentDiscount;
     }
 }

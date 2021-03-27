@@ -1,8 +1,8 @@
 package by.gsu.epamlab;
 
 public class Product {
-    private String name;
-    private Byn price;
+    private final String name;
+    private final Byn price;
 
     public Product(String name, Byn price) {
         this.name = name;
