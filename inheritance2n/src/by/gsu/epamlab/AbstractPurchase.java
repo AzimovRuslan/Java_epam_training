@@ -29,7 +29,7 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase>{
         return finalCost.roundByn(RoundMethod.FLOOR, 2);
     }
 
-    public String fieldsToString() {
+    protected String fieldsToString() {
         return product + ";" + number;
     }
 

@@ -1,6 +1,6 @@
 package by.gsu.epamlab;
 
-public final class Byn implements Comparable<Byn> {
+public class Byn implements Comparable<Byn> {
     private final int kopecks;
 
     public Byn(int kopecks) {

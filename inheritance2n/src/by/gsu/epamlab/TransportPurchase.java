@@ -14,7 +14,7 @@ public class TransportPurchase extends AbstractPurchase{
     }
 
     @Override
-    public String fieldsToString() {
+    protected String fieldsToString() {
         return super.fieldsToString() + ";" + transportCost;
     }
 }

@@ -19,7 +19,7 @@ public class PercentDiscountPurchase extends AbstractPurchase{
     }
 
     @Override
-    public String fieldsToString() {
+    protected String fieldsToString() {
         return super.fieldsToString() + ";" + percentDiscount;
     }
 }
