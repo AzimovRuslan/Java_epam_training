@@ -1,18 +1,20 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Runner {
     public static void main(String[] args) {
         final String INPUT_CSV = "src/in.csv";
         try(Scanner sc = new Scanner(new FileReader(INPUT_CSV))) {
+            Locale.setDefault(Locale.US);
             final String PLUS = "+";
             final String MINUS = "-";
             int error = 0;
             double sum = 0;
-            ArrayList<Double> numbers = new ArrayList<>();
-
+            StringBuilder sb = new StringBuilder();
+            
             while(sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] splitLine = line.split(";");
@@ -23,28 +25,34 @@ public class Runner {
                     int i = Integer.parseInt(splitLine[0]);
                     if (!isDouble(splitLine[i])) {
                         splitLine[i] = splitLine[i].replace(splitLine[i], "0.0");
-                        numbers.add(Double.parseDouble(splitLine[i]));
+                        sb.append(Double.parseDouble(splitLine[i])).append(" ");
                         sum += Double.parseDouble(splitLine[i]);
                         error++;
                     } else {
-                        numbers.add(Double.parseDouble(splitLine[i]));
+                        if (Double.parseDouble(splitLine[i]) < 0) {
+                            splitLine[i] = splitLine[i].replace("-", " ");
+                            sb.append(MINUS).append(" ").append(Double.parseDouble(splitLine[i])).append(" ");
+                        } else {
+                            sb.append(PLUS).append(" ").append(Double.parseDouble(splitLine[i])).append(" ");
+                        }
                         sum += Double.parseDouble(splitLine[i]);
                     }
                 }
             }
 
-            StringBuilder sb = new StringBuilder();
-            sb.append(numbers.get(0)).append(" ");
-            for(int i = 1; i < numbers.size(); i++) {
-                String temp;
-                if (numbers.get(i) < 0) {
-                    temp = MINUS + " " + Math.abs(numbers.get(i));
-                } else {
-                    temp = PLUS + " " + numbers.get(i);
-                }
-                sb.append(temp).append(" ");
+            if (sb.charAt(0) == '-') {
+                sb.deleteCharAt(0);
+                sb.setCharAt(0, '-');
+            } else {
+                sb.deleteCharAt(0);
+                sb.deleteCharAt(0);
             }
             sb.deleteCharAt(sb.length() - 1);
+            for(int i = 0; i < sb.length(); i++){
+                if (i == sb.indexOf("-")) {
+                    System.out.println(i);
+                }
+            }
 
             System.out.printf("result(%s) = %.2f%n", sb.toString(), sum);
             System.out.println("error-lines = " + error);
