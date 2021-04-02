@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ public class Runner {
             int error = 0;
             double sum = 0;
             StringBuilder sb = new StringBuilder();
-            
+
+
             while(sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] splitLine = line.split(";");
@@ -30,12 +32,13 @@ public class Runner {
                         error++;
                     } else {
                         if (Double.parseDouble(splitLine[i]) < 0) {
+                            sum += Double.parseDouble(splitLine[i]);
                             splitLine[i] = splitLine[i].replace("-", " ");
                             sb.append(MINUS).append(" ").append(Double.parseDouble(splitLine[i])).append(" ");
                         } else {
+                            sum += Double.parseDouble(splitLine[i]);
                             sb.append(PLUS).append(" ").append(Double.parseDouble(splitLine[i])).append(" ");
                         }
-                        sum += Double.parseDouble(splitLine[i]);
                     }
                 }
             }
@@ -47,12 +50,17 @@ public class Runner {
                 sb.deleteCharAt(0);
                 sb.deleteCharAt(0);
             }
+//            if (sb.charAt(0) == '-') {
+//                sb.delete(0, 1);
+//                sb.deleteCharAt(0);
+//            }
+
             sb.deleteCharAt(sb.length() - 1);
-            for(int i = 0; i < sb.length(); i++){
-                if (i == sb.indexOf("-")) {
-                    System.out.println(i);
-                }
-            }
+//            for(int i = 6; i < sb.length(); i++){
+//                if (i == sb.indexOf("-")) {
+//                    System.out.println(sb.indexOf("-"));
+//                }
+//            }
 
             System.out.printf("result(%s) = %.2f%n", sb.toString(), sum);
             System.out.println("error-lines = " + error);
