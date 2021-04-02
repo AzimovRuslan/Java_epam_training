@@ -8,70 +8,43 @@ public class Runner {
         final String INPUT_CSV = "src/in.csv";
         try(Scanner sc = new Scanner(new FileReader(INPUT_CSV))) {
             Locale.setDefault(Locale.US);
-            final String PLUS = "+";
-            final String MINUS = "-";
+            final String PLUS = " + ";
+            final String MINUS = " - ";
             int error = 0;
             double sum = 0;
             StringBuilder sb = new StringBuilder();
-
 
             while(sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] splitLine = line.split(";");
 
-                if (!isInteger(splitLine[0]) || Integer.parseInt(splitLine[0]) > splitLine.length || Integer.parseInt(splitLine[0]) < 0) {
-                    error++;
-                } else {
+                try {
                     int i = Integer.parseInt(splitLine[0]);
-                    if (!isDouble(splitLine[i])) {
-                        splitLine[i] = splitLine[i].replace(splitLine[i], "0.0");
-                        sb.append(Double.parseDouble(splitLine[i])).append(" ");
-                        sum += Double.parseDouble(splitLine[i]);
-                        error++;
+                    sum += Double.parseDouble(splitLine[i]);
+
+                    if (Double.parseDouble(splitLine[i]) < 0) {
+                        sb.append(MINUS).append(splitLine[i].replace("-", ""));
                     } else {
-                        if (Double.parseDouble(splitLine[i]) < 0) {
-                            sum += Double.parseDouble(splitLine[i]);
-                            splitLine[i] = splitLine[i].replace("-", " ");
-                            sb.append(MINUS).append(" ").append(Double.parseDouble(splitLine[i])).append(" ");
-                        } else {
-                            sum += Double.parseDouble(splitLine[i]);
-                            sb.append(PLUS).append(" ").append(Double.parseDouble(splitLine[i])).append(" ");
-                        }
+                        sb.append(PLUS).append(splitLine[i]);
                     }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    error++;
                 }
             }
 
-            if (sb.charAt(0) == '-') {
-                sb.deleteCharAt(0);
-                sb.setCharAt(0, '-');
-            } else {
-                sb.delete(0, 2);
+            if (sb.length() > 0) {
+                if (sb.charAt(1) == '-') {
+                    sb.delete(0, 2);
+                    sb.setCharAt(0, '-');
+                } else {
+                    sb.delete(0, 3);
+                }
             }
-            sb.deleteCharAt(sb.length() - 1);
-
 
             System.out.printf("result(%s) = %.2f%n", sb.toString(), sum);
             System.out.println("error-lines = " + error);
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println("Input file is not found");
-        }
-    }
-
-    private static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(String.valueOf(s));
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private static boolean isDouble(String s) {
-        try {
-            Double.parseDouble(String.valueOf(s));
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 }
