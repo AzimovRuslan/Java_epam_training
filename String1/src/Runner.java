@@ -16,6 +16,8 @@ public class Runner {
             final String RESULT_HEAD = "result(";
             final String RESULT_TAIL = ") = ";
             final String ERROR_LINES = "error-lines = ";
+            final char CHAR_MINUS = '-';
+            final int MINUS_POS = MINUS.indexOf(CHAR_MINUS);
             int errorLines = 0;
             double sum = 0;
             StringBuilder strResult = new StringBuilder();
@@ -25,26 +27,21 @@ public class Runner {
 
                 try {
                     int i = Integer.parseInt(words[0]);
-                    sum += Double.parseDouble(words[i]);
+                    double number = Double.parseDouble(words[i]);
+                    sum += number;
 
-                    if (Double.parseDouble(words[i]) < 0) {
-                        strResult.append(MINUS).append(Math.abs(Double.parseDouble(words[i])));
-                    } else {
-                        strResult.append(PLUS).append(words[i]);
-                    }
+                    strResult.append(number < 0 ? MINUS : PLUS).append(Math.abs(number));
                 } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                     errorLines++;
                 }
             }
 
             if (strResult.length() > 0) {
-                final int SIGN_LENGTH = MINUS.length();
-                final char CHAR_MINUS = '-';
-                if (strResult.charAt(1) == CHAR_MINUS){
-                    strResult.delete(0, SIGN_LENGTH - 1);
-                    strResult.setCharAt(0, CHAR_MINUS);
-                } else {
-                    strResult.delete(0, SIGN_LENGTH);
+                final int MINUS_LENGTH = MINUS.length();
+                char c = strResult.charAt(MINUS_POS);
+                strResult.delete(0, MINUS_LENGTH);
+                if (c == CHAR_MINUS) {
+                    strResult.insert(0, CHAR_MINUS);
                 }
             }
 
