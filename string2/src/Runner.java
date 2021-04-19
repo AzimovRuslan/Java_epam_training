@@ -1,7 +1,3 @@
-import com.sun.jdi.DoubleValue;
-
-import javax.swing.*;
-import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +10,6 @@ public class Runner {
             Enumeration<String> keys = rb.getKeys();
             String key;
             double sum = 0;
-            List<String> findValues = new ArrayList<>();
             int error = 0;
 
             Pattern indexPattern = Pattern.compile("^index(.*)");
