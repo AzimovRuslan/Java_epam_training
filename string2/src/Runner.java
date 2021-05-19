@@ -26,11 +26,13 @@ public class Runner {
             while (keys.hasMoreElements()) {
                 key = keys.nextElement();
                 Matcher keyMatcher = keyPattern.matcher(key);
+
                 if (keyMatcher.matches()) {
                     iStr = keyMatcher.group(TAIL_INDEX).trim();
                     jStr = rb.getString(key).trim();
                     Matcher iMatcher = valuePattern.matcher(iStr);
                     Matcher jMatcher = valuePattern.matcher(jStr);
+
                     if (iMatcher.matches() && jMatcher.matches()) {
                         valueIJ = VALUE + iStr + jStr;
                         try {
@@ -41,6 +43,7 @@ public class Runner {
                     } else {
                         error++;
                     }
+                    
                 }
             }
             System.out.println("sum = " + sum);
