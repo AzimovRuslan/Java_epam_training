@@ -16,6 +16,8 @@ public class Runner {
 
             final int TAIL_INDEX = 1;
             final String VALUE = "value";
+            final String SUM = "sum = ";
+            final String ERROR_LINES = "error-lines = ";
             String key;
             String iStr;
             String jStr;
@@ -43,11 +45,11 @@ public class Runner {
                     } else {
                         error++;
                     }
-                    
+
                 }
             }
-            System.out.println("sum = " + sum);
-            System.out.println("error-lines = " + error);
+            System.out.println(SUM + sum);
+            System.out.println(ERROR_LINES + error);
         } catch (MissingResourceException e) {
             System.out.println("No input file");
         }
