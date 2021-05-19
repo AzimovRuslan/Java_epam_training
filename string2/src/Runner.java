@@ -10,8 +10,7 @@ public class Runner {
             Enumeration<String> keys = rb.getKeys();
             final String KEY_REG_EXP = "^index(.*)";
             final String NUM_REG_EXP = "[1-9]\\d*";
-
-
+            
             Pattern keyPattern = Pattern.compile(KEY_REG_EXP);
             Pattern valuePattern = Pattern.compile(NUM_REG_EXP);
 
