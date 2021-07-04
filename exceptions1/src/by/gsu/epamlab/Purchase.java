@@ -1,9 +1,8 @@
 package by.gsu.epamlab;
 
 import java.util.Objects;
-import java.util.Scanner;
 
-public class Purchase {
+public class Purchase implements Comparable<Purchase>{
         private String name;
         private Byn price;
         private int number;
@@ -50,12 +49,21 @@ public class Purchase {
             return fieldsToTable() + "     " + "     " + "     " + getCost();
         }
 
+        public Purchase setData() {
+            return new Purchase(null, new Byn(0), 0);
+        }
+
         @Override
         public boolean equals(Object object) {
             if (this == object) return true;
             if (object == null ) return false;
             if(!(object instanceof Purchase)) return false;
             Purchase purchase = (Purchase) object;
-            return Objects.equals(name, purchase.name) && Objects.equals(price, purchase.price);
+            return Objects.equals(name, purchase.name) && Objects.equals(price, purchase.price) && Objects.equals(number, purchase.number);
+        }
+
+        @Override
+        public int compareTo(Purchase purchase) {
+            return name.compareTo(purchase.getName());
         }
 }

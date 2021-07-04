@@ -25,13 +25,12 @@ public class Byn {
     }
 
     public Byn sub(Byn byn) {
-        kopecks -= byn.kopecks;
-        return this;
+
+        return new Byn(kopecks - byn.kopecks);
     }
 
     public Byn mul(int value) {
-        kopecks *= value;
-        return this;
+        return new Byn(kopecks * value);
     }
 
     public Byn mul(double value, RoundMethod roundMethod, int d) {
@@ -51,6 +50,7 @@ public class Byn {
         Byn byn = (Byn) object;
         return kopecks == byn.kopecks;
     }
+
 //
 //    @Override
 //    public int compareTo(Byn byn) {
