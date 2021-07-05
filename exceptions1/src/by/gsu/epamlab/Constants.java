@@ -1,7 +1,5 @@
 package by.gsu.epamlab;
 
-import java.awt.*;
-
 public class Constants {
     public static String WRONG_AMOUNT_ARGUMENTS = "wrong amount arguments";
     public static String INCORRECT_NUMBER_FOR_DISCOUNT = "incorrect number for number";
@@ -20,8 +18,5 @@ public class Constants {
     public static String COMPARATOR_PATH = "by.gsu.epamlab.comparator.";
     public static String ELEMENT_POSITION = " is found at position";
     public static String NOT_FOUND_ELEMENT = " isn't found ";
-
-
-
-
+    public static String FILE_NOT_FOUND = "File not fount";
 }

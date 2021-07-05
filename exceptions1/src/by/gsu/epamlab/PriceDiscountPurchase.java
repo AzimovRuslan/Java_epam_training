@@ -10,10 +10,6 @@ public class PriceDiscountPurchase extends Purchase {
         this.discount = discount;
     }
 
-    public Byn getDiscount() {
-        return discount;
-    }
-
     @Override
     public Byn getCost() {
         return super.getCost().sub(discount.mul(getNumber()));
@@ -22,10 +18,5 @@ public class PriceDiscountPurchase extends Purchase {
     @Override
     protected String fieldsToString() {
         return super.fieldsToString() + ";" + discount;
-    }
-
-    @Override
-    public String fieldsToTable() {
-        return super.fieldsToTable() + "     " + discount;
     }
 }

@@ -33,7 +33,7 @@ public class PurchasesList {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.err.println("File not fount");
+            System.err.println(Constants.FILE_NOT_FOUND);
         }
     }
 

@@ -6,7 +6,6 @@ import by.gsu.epamlab.Purchase;
 import java.util.Comparator;
 
 public class ComparatorVersion2 implements Comparator<Purchase> {
-
     @Override
     public int compare(Purchase o1, Purchase o2) {
         if (o1.getName().equals(o2.getName())) {
