@@ -1,10 +1,10 @@
 package by.gsu.epamlab;
 
-import Exceptions.*;
+import by.gsu.epamlab.comparator.ComparatorVersion1;
+import by.gsu.epamlab.exceptions.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.text.Normalizer;
 import java.util.*;
 
 public class PurchasesList {
@@ -29,7 +29,7 @@ public class PurchasesList {
                 } catch (NullPointerException e) {
                     System.err.println(e);
                 } catch (WrongAmountArgumentsException | IncorrectNumberException | NonPositiveNumberException | EmptyArgumentException e) {
-                    e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
@@ -52,10 +52,8 @@ public class PurchasesList {
     }
 
     public void deleteElement(int index) {
-        try {
+        if (index <= 0 && index < purchases.size()) {
             purchases.remove(index);
-        } catch (IndexOutOfBoundsException e) {
-            System.err.println(e);
         }
     }
 
@@ -70,7 +68,7 @@ public class PurchasesList {
     public void printTable() {
         Formatter f = new Formatter();
         String tableFormat = "%1$15s %2$15s %3$15s %4$17s %5$13s%n";
-        f.format(tableFormat, "Name", "Price", "Number" , "Discount", "Cost");
+        f.format(tableFormat, "Name", "Price", "Number", "Discount", "Cost");
         for (Purchase purchase : purchases) {
             String[] line = formatLine(purchase);
             f.format(tableFormat, line[0], line[1], line[2], line[3], line[4]);
@@ -89,15 +87,27 @@ public class PurchasesList {
         return str;
     }
 
-    public void sort() {
-        Collections.sort(purchases);
+    public void sort(Comparator<Purchase> comparator) {
+        purchases.sort(comparator);
     }
 
     public Purchase findElement(int index) {
         return purchases.get(index);
     }
 
-    public int searchIndexElement(Purchase purchase) {
-        return Collections.binarySearch(purchases, purchase);
+    public int searchIndexElement(Purchase purchase, Comparator<Purchase> comparator) {
+        return Collections.binarySearch(purchases, purchase, comparator);
+    }
+
+    public static Comparator<Purchase> createComparator(String name) {
+        String fullName = Constants.COMPARATOR_PATH + name;
+        Comparator<Purchase> comparator = new ComparatorVersion1();
+        try {
+            Class classComparator = Class.forName(fullName);
+            comparator = (Comparator<Purchase>) classComparator.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return comparator;
     }
 }

@@ -1,27 +1,27 @@
-import Exceptions.NonPositiveNumberException;
-import Exceptions.NonPositivePriceException;
+import by.gsu.epamlab.comparator.ComparatorVersion1;
+import by.gsu.epamlab.exceptions.NonPositiveNumberException;
+import by.gsu.epamlab.exceptions.NonPositivePriceException;
 import by.gsu.epamlab.Byn;
+import by.gsu.epamlab.Constants;
 import by.gsu.epamlab.Purchase;
 import by.gsu.epamlab.PurchasesList;
 
-import java.util.ArrayList;
-import java.util.Formatter;
+import java.util.Comparator;
 
 public class Runner {
-    public static void main(String[] args) throws NonPositivePriceException, NonPositiveNumberException {
-        String fileIn = "src/in.csv";
-        String fileAddon = "src/addon.csv";
+
+    public static void main(String[] args){
+        String fileIn = args[Constants.IN_INDEX];
+        String fileAddon = args[Constants.ADDON_INDEX];
+        Comparator comparator = PurchasesList.createComparator(args[Constants.COMPARATOR_INDEX]);
 
         PurchasesList purchasesList = new PurchasesList(fileIn);
         purchasesList.printList();
         System.out.println();
         PurchasesList additionalPurchasesList = new PurchasesList(fileAddon);
-        Purchase lastElementAdditionalPurchasesList = additionalPurchasesList.getPurchases().get(additionalPurchasesList.getPurchases().size() - 1);
-        Purchase firstElementAdditionalPurchasesList = additionalPurchasesList.getPurchases().get(0);
-        Purchase thirdElementAdditionalPurchasesList = additionalPurchasesList.getPurchases().get(2);
-        purchasesList.insertElement(lastElementAdditionalPurchasesList, 0);
-        purchasesList.insertElement(firstElementAdditionalPurchasesList, 1000);
-        purchasesList.insertElement(thirdElementAdditionalPurchasesList, 2);
+        purchasesList.insertElement(additionalPurchasesList.getPurchases().get(additionalPurchasesList.getPurchases().size() - 1), 0);
+        purchasesList.insertElement(additionalPurchasesList.getPurchases().get(0), 1000);
+        purchasesList.insertElement(additionalPurchasesList.getPurchases().get(2), 2);
         purchasesList.printList();
         System.out.println();
 
@@ -31,47 +31,24 @@ public class Runner {
 
         purchasesList.printList();
 
-        purchasesList.sort();
+        purchasesList.sort(comparator);
         purchasesList.printTable();
 
-        Purchase firstPurchase = additionalPurchasesList.findElement(2);
-        Purchase p = new Purchase("meat", new Byn(1400), 1);
-        int ret = purchasesList.searchIndexElement(p);
-        System.out.println(ret);
+        Purchase firstAddonElement = additionalPurchasesList.findElement(1);
+        Purchase thirdAddonElement = additionalPurchasesList.findElement(3);
+        int retFirstPurchase = purchasesList.searchIndexElement(firstAddonElement, comparator);
+        int retThirdPurchase = purchasesList.searchIndexElement(thirdAddonElement, comparator);
 
-//        Purchase thirdPurchase = additionalPurchasesList.findElement(3);
-//
-//        int retPurchase1 = purchasesList.searchIndexElement(thirdPurchase);
-//        int retPurchase2 = purchasesList.searchIndexElement(thirdPurchase);
-//
-//        if (retPurchase1 < 0) {
-//            System.out.println(firstPurchase + "not found");
-//        } else {
-//            System.out.println(purchasesList.getPurchases().get(retPurchase1));
-//        }
+        if (retFirstPurchase > 0) {
+            System.out.println(firstAddonElement + Constants.ELEMENT_POSITION + retFirstPurchase);
+        } else {
+            System.out.println(firstAddonElement + Constants.NOT_FOUND_ELEMENT);
+        }
 
-//        if (retPurchase2 < 0) {
-//            System.out.println(thirdPurchase + "not found");
-//        } else {
-//            System.out.println(purchasesList.getPurchases().get(retPurchase2));
-//        }
-
-
-
-
-
-
-
-//        purchasesList.insertElement(new Purchase("fwfe", new Byn(100), 10), 100);
-//        purchasesList.deleteElement(102);
-//        purchasesList.printList();
-//
-//        System.out.println(purchasesList.totalCost());
-//        purchasesList.sort();
-//        purchasesList.printTable();
-//        Formatter f = new Formatter();
-
-
-
+        if (retThirdPurchase > 0) {
+            System.out.println(thirdAddonElement + Constants.ELEMENT_POSITION + retThirdPurchase);
+        } else {
+            System.out.println(thirdAddonElement + Constants.NOT_FOUND_ELEMENT);
+        }
     }
 }

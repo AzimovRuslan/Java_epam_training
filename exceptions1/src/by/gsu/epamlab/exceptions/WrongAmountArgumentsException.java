@@ -1,4 +1,4 @@
-package Exceptions;
+package by.gsu.epamlab.exceptions;
 
 public class WrongAmountArgumentsException extends Exception {
     public WrongAmountArgumentsException(String message) {

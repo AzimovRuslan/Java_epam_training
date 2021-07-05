@@ -1,4 +1,4 @@
-package Exceptions;
+package by.gsu.epamlab.exceptions;
 
 public class NonPositiveNumberException extends Exception {
 

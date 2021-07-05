@@ -2,7 +2,7 @@ package by.gsu.epamlab;
 
 import java.util.Objects;
 
-public class Purchase implements Comparable<Purchase>{
+public class Purchase {
         private String name;
         private Byn price;
         private int number;
@@ -59,11 +59,6 @@ public class Purchase implements Comparable<Purchase>{
             if (object == null ) return false;
             if(!(object instanceof Purchase)) return false;
             Purchase purchase = (Purchase) object;
-            return Objects.equals(name, purchase.name) && Objects.equals(price, purchase.price) && Objects.equals(number, purchase.number);
-        }
-
-        @Override
-        public int compareTo(Purchase purchase) {
-            return name.compareTo(purchase.getName());
+            return Objects.equals(name, purchase.name) && Objects.equals(getCost(), purchase.getCost());
         }
 }

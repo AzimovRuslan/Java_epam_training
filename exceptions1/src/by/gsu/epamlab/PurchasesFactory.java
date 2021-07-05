@@ -1,9 +1,9 @@
 package by.gsu.epamlab;
 
-import Exceptions.EmptyArgumentException;
-import Exceptions.IncorrectNumberException;
-import Exceptions.NonPositiveNumberException;
-import Exceptions.WrongAmountArgumentsException;
+import by.gsu.epamlab.exceptions.EmptyArgumentException;
+import by.gsu.epamlab.exceptions.IncorrectNumberException;
+import by.gsu.epamlab.exceptions.NonPositiveNumberException;
+import by.gsu.epamlab.exceptions.WrongAmountArgumentsException;
 
 public class PurchasesFactory {
     static Purchase getPurchase(String line) throws WrongAmountArgumentsException, IncorrectNumberException, NonPositiveNumberException, EmptyArgumentException {

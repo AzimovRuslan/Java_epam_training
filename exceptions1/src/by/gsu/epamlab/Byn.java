@@ -1,6 +1,6 @@
 package by.gsu.epamlab;
 
-public class Byn {
+public class Byn implements Comparable<Byn> {
     private int kopecks;
 
     public Byn(int kopecks) {
@@ -49,6 +49,11 @@ public class Byn {
         if (object == null || getClass() != object.getClass()) return false;
         Byn byn = (Byn) object;
         return kopecks == byn.kopecks;
+    }
+
+    @Override
+    public int compareTo(Byn byn) {
+        return kopecks - byn.kopecks;
     }
 
 //
