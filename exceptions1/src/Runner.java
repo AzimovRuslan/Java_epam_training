@@ -8,38 +8,40 @@ import java.util.Comparator;
 public class Runner {
 
     public static void main(String[] args){
-        String fileIn = args[Constants.IN_INDEX];
-        String fileAddon = args[Constants.ADDON_INDEX];
-        Comparator comparator = PurchaseComparatorBuilder.buildPurchaseComparator(args[Constants.COMPARATOR_INDEX]);
+        if (args.length == 3) {
+            String fileIn = args[Constants.IN_INDEX];
+            String fileAddon = args[Constants.ADDON_INDEX];
+            Comparator comparator = PurchaseComparatorBuilder.buildPurchaseComparator(args[Constants.COMPARATOR_INDEX]);
 
-        PurchasesList purchasesList = new PurchasesList(fileIn);
+            PurchasesList purchasesList = new PurchasesList(fileIn);
 
-        printList(purchasesList);
+            printList(purchasesList);
 
-        PurchasesList additionalPurchasesList = new PurchasesList(fileAddon);
+            PurchasesList additionalPurchasesList = new PurchasesList(fileAddon);
 
-        purchasesList.insertElement(findAddonElement(additionalPurchasesList, additionalPurchasesList.getPurchases().size() - 1), 0);
+            purchasesList.insertElement(findAddonElement(additionalPurchasesList, additionalPurchasesList.getPurchases().size() - 1), 0);
 
-        purchasesList.insertElement(findAddonElement(additionalPurchasesList, 0), 1000);
+            purchasesList.insertElement(findAddonElement(additionalPurchasesList, 0), 1000);
 
-        purchasesList.insertElement(findAddonElement(additionalPurchasesList, 2), 2);
+            purchasesList.insertElement(findAddonElement(additionalPurchasesList, 2), 2);
 
-        deleteElement(purchasesList, 3);
-        deleteElement(purchasesList, 10);
-        deleteElement(purchasesList, -5);
+            deleteElement(purchasesList, 3);
+            deleteElement(purchasesList, 10);
+            deleteElement(purchasesList, -5);
 
-        printList(purchasesList);
+            printList(purchasesList);
 
-        purchasesList.sort(comparator);
+            purchasesList.sort(comparator);
 
-        printTable(purchasesList);
+            printTable(purchasesList);
 
-        Purchase firstAddonElement = additionalPurchasesList.findElement(1);
-        Purchase thirdAddonElement = additionalPurchasesList.findElement(3);
-        int retFirstPurchase = purchasesList.searchIndexElement(firstAddonElement, comparator);
-        int retThirdPurchase = purchasesList.searchIndexElement(thirdAddonElement, comparator);
-        findElement(firstAddonElement, retFirstPurchase);
-        findElement(thirdAddonElement, retThirdPurchase);
+            Purchase firstAddonElement = additionalPurchasesList.findElement(1);
+            Purchase thirdAddonElement = additionalPurchasesList.findElement(3);
+            int retFirstPurchase = purchasesList.searchIndexElement(firstAddonElement, comparator);
+            int retThirdPurchase = purchasesList.searchIndexElement(thirdAddonElement, comparator);
+            findElement(firstAddonElement, retFirstPurchase);
+            findElement(thirdAddonElement, retThirdPurchase);
+        }
     }
 
     private static void printList(PurchasesList purchasesList) {

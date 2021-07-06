@@ -10,42 +10,32 @@ public class PurchasesFactory {
         Byn price;
         int number = 0;
 
+        if (len > Constants.PRICE_DISCOUNT_PURCHASE_COUNT || len < Constants.PURCHASE_COUNT) {
+            throw new CsvLineException(Constants.WRONG_NUMBER_ELEMENTS);
+        }
+
         try {
             name = str[0];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CsvLineException(Constants.WRONG_AMOUNT_ARGUMENTS);
-        }
-
-        if (len > 4 || len < 3) {
-            throw new CsvLineException(Constants.WRONG_AMOUNT_ARGUMENTS);
-        }
-
-        if (name.length() == 0) {
-            throw new CsvLineException(Constants.EMPTY_NAME);
-        }
-
-        try {
             price = new Byn(Integer.parseInt(str[1]));
-        } catch (NumberFormatException e) {
-            throw new CsvLineException(Constants.INCORRECT_NUMBER_FOR_PRICE);
-        }
-
-        try {
             number = Integer.parseInt(str[2]);
-        } catch (NumberFormatException e) {
-            throw new CsvLineException(Constants.INCORRECT_NUMBER_FOR_NUMBER);
-        }
 
-        if (len == 3) {
-            return new Purchase(name, price, number);
-        } else {
-            Byn discount;
-            try {
-                discount = new Byn(Integer.parseInt(str[3]));
-            } catch (NumberFormatException e) {
-                throw new CsvLineException(Constants.INCORRECT_NUMBER_FOR_DISCOUNT);
+            if (name.length() == 0) {
+                throw new CsvLineException(Constants.EMPTY_NAME);
             }
-            return new PriceDiscountPurchase(name, price, number, discount);
+
+            if (len == 3) {
+                return new Purchase(name, price, number);
+            } else {
+                Byn discount;
+                try {
+                    discount = new Byn(Integer.parseInt(str[3]));
+                } catch (NumberFormatException e) {
+                    throw new CsvLineException(Constants.WRONG_NUMBER_ARGUMENTS);
+                }
+                return new PriceDiscountPurchase(name, price, number, discount);
+            }
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            throw new CsvLineException(Constants.INCORRECT_ARGUMENT);
         }
     }
 }

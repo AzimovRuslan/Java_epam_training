@@ -1,7 +1,7 @@
 package by.gsu.epamlab;
 
 public class Constants {
-    public static String WRONG_AMOUNT_ARGUMENTS = "wrong amount arguments";
+    public static String WRONG_NUMBER_ARGUMENTS = "wrong number arguments";
     public static String INCORRECT_NUMBER_FOR_DISCOUNT = "incorrect number for number";
     public static String INCORRECT_NUMBER_FOR_PRICE = "incorrect number for price";
     public static String INCORRECT_NUMBER_FOR_NUMBER = "incorrect number for price";
@@ -16,4 +16,9 @@ public class Constants {
     public static String ELEMENT_POSITION = " is found at position";
     public static String NOT_FOUND_ELEMENT = " isn't found ";
     public static String FILE_NOT_FOUND = "File not fount";
+    public static int PURCHASE_COUNT = 3;
+    public static int PRICE_DISCOUNT_PURCHASE_COUNT = 4;
+    public static String WRONG_NUMBER_ELEMENTS = "wrong number of elements";
+    public static String INCORRECT_ARGUMENT = "incorrect argument";
+
 }
