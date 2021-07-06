@@ -41,6 +41,8 @@ public class Runner {
             int retThirdPurchase = purchasesList.searchIndexElement(thirdAddonElement, comparator);
             findElement(firstAddonElement, retFirstPurchase);
             findElement(thirdAddonElement, retThirdPurchase);
+        } else {
+            System.out.println("incorrect amount arguments");
         }
     }
 
