@@ -1,12 +1,9 @@
 package by.gsu.epamlab;
 
-import by.gsu.epamlab.exceptions.EmptyArgumentException;
-import by.gsu.epamlab.exceptions.IncorrectNumberException;
-import by.gsu.epamlab.exceptions.NonPositiveNumberException;
-import by.gsu.epamlab.exceptions.WrongAmountArgumentsException;
+import by.gsu.epamlab.exceptions.*;
 
 public class PurchasesFactory {
-    static Purchase getPurchase(String line) throws WrongAmountArgumentsException, IncorrectNumberException, NonPositiveNumberException, EmptyArgumentException {
+    static Purchase getPurchase(String line) throws CsvLineException {
         String[] str = line.split(Constants.DELIMITER);
         int len = str.length;
         String name;
@@ -16,35 +13,27 @@ public class PurchasesFactory {
         try {
             name = str[0];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new WrongAmountArgumentsException(line + Constants.ARROW + Constants.WRONG_AMOUNT_ARGUMENTS);
+            throw new CsvLineException(Constants.WRONG_AMOUNT_ARGUMENTS);
         }
 
         if (len > 4 || len < 3) {
-            throw new WrongAmountArgumentsException(line + Constants.ARROW + Constants.WRONG_AMOUNT_ARGUMENTS);
+            throw new CsvLineException(Constants.WRONG_AMOUNT_ARGUMENTS);
         }
 
         if (name.length() == 0) {
-            throw new EmptyArgumentException(line + Constants.ARROW + Constants.EMPTY_NAME);
+            throw new CsvLineException(Constants.EMPTY_NAME);
         }
 
         try {
             price = new Byn(Integer.parseInt(str[1]));
         } catch (NumberFormatException e) {
-            throw new IncorrectNumberException(line + Constants.ARROW + Constants.INCORRECT_NUMBER_FOR_PRICE);
-        }
-
-        if (price.getKopecks() <= 0) {
-            throw new NonPositiveNumberException(line + Constants.ARROW + Constants.NON_POSITIVE_HEAD + price + Constants.NON_POSITIVE_PRICE_TAIL);
+            throw new CsvLineException(Constants.INCORRECT_NUMBER_FOR_PRICE);
         }
 
         try {
             number = Integer.parseInt(str[2]);
         } catch (NumberFormatException e) {
-            throw new IncorrectNumberException(line + Constants.ARROW + Constants.INCORRECT_NUMBER_FOR_NUMBER);
-        }
-
-        if (number <= 0) {
-            throw new NonPositiveNumberException(line + Constants.ARROW + Constants.NON_POSITIVE_HEAD + number + Constants.NON_POSITIVE_NUMBER_TAIL);
+            throw new CsvLineException(Constants.INCORRECT_NUMBER_FOR_NUMBER);
         }
 
         if (len == 3) {
@@ -54,13 +43,8 @@ public class PurchasesFactory {
             try {
                 discount = new Byn(Integer.parseInt(str[3]));
             } catch (NumberFormatException e) {
-                throw new IncorrectNumberException(line + Constants.ARROW + Constants.INCORRECT_NUMBER_FOR_DISCOUNT);
+                throw new CsvLineException(Constants.INCORRECT_NUMBER_FOR_DISCOUNT);
             }
-
-            if (discount.getKopecks() <= 0 || discount.getKopecks() >= 100) {
-                throw new NonPositiveNumberException(line + Constants.ARROW + Constants.NON_POSITIVE_HEAD + discount + Constants.NON_POSITIVE_DISCOUNT_TAIL);
-            }
-
             return new PriceDiscountPurchase(name, price, number, discount);
         }
     }

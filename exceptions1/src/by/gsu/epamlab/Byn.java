@@ -11,10 +11,6 @@ public class Byn implements Comparable<Byn> {
         return kopecks;
     }
 
-    public Byn() {
-        this(0);
-    }
-
     public Byn(Byn byn) {
         this(byn.kopecks);
     }
@@ -31,11 +27,6 @@ public class Byn implements Comparable<Byn> {
 
     public Byn mul(int value) {
         return new Byn(kopecks * value);
-    }
-
-    public Byn mul(double value, RoundMethod roundMethod, int d) {
-        kopecks = roundMethod.round(kopecks * value, d);
-        return this;
     }
 
     @Override

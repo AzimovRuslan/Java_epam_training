@@ -1,12 +1,19 @@
 package by.gsu.epamlab;
 
+import by.gsu.epamlab.exceptions.NonPositiveArgumentException;
+
 public class PriceDiscountPurchase extends Purchase {
     private Byn discount;
 
-    public PriceDiscountPurchase() {}
-
     public PriceDiscountPurchase(String name, Byn price, int number, Byn discount) {
         super(name, price, number);
+        setDiscount(discount);
+    }
+
+    public void setDiscount(Byn discount) {
+        if (discount.getKopecks() <= 0 || discount.getKopecks() >= 100) {
+            throw new NonPositiveArgumentException(discount.getKopecks(), NumField.DISCOUNT);
+        }
         this.discount = discount;
     }
 

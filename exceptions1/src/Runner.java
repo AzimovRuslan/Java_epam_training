@@ -1,6 +1,7 @@
 import by.gsu.epamlab.Constants;
 import by.gsu.epamlab.Purchase;
 import by.gsu.epamlab.PurchasesList;
+import by.gsu.epamlab.comparator.PurchaseComparatorBuilder;
 
 import java.util.Comparator;
 
@@ -9,42 +10,59 @@ public class Runner {
     public static void main(String[] args){
         String fileIn = args[Constants.IN_INDEX];
         String fileAddon = args[Constants.ADDON_INDEX];
-        Comparator comparator = PurchasesList.createComparator(args[Constants.COMPARATOR_INDEX]);
+        Comparator comparator = PurchaseComparatorBuilder.buildPurchaseComparator(args[Constants.COMPARATOR_INDEX]);
 
         PurchasesList purchasesList = new PurchasesList(fileIn);
-        purchasesList.printList();
-        System.out.println();
+
+        printList(purchasesList);
+
         PurchasesList additionalPurchasesList = new PurchasesList(fileAddon);
-        purchasesList.insertElement(additionalPurchasesList.getPurchases().get(additionalPurchasesList.getPurchases().size() - 1), 0);
-        purchasesList.insertElement(additionalPurchasesList.getPurchases().get(0), 1000);
-        purchasesList.insertElement(additionalPurchasesList.getPurchases().get(2), 2);
-        purchasesList.printList();
-        System.out.println();
 
-        purchasesList.deleteElement(3);
-        purchasesList.deleteElement(5);
-        purchasesList.deleteElement(10);
+        purchasesList.insertElement(findAddonElement(additionalPurchasesList, additionalPurchasesList.getPurchases().size() - 1), 0);
 
-        purchasesList.printList();
+        purchasesList.insertElement(findAddonElement(additionalPurchasesList, 0), 1000);
+
+        purchasesList.insertElement(findAddonElement(additionalPurchasesList, 2), 2);
+
+        deleteElement(purchasesList, 3);
+        deleteElement(purchasesList, 10);
+        deleteElement(purchasesList, -5);
+
+        printList(purchasesList);
 
         purchasesList.sort(comparator);
-        purchasesList.printTable();
+
+        printTable(purchasesList);
 
         Purchase firstAddonElement = additionalPurchasesList.findElement(1);
         Purchase thirdAddonElement = additionalPurchasesList.findElement(3);
         int retFirstPurchase = purchasesList.searchIndexElement(firstAddonElement, comparator);
         int retThirdPurchase = purchasesList.searchIndexElement(thirdAddonElement, comparator);
+        findElement(firstAddonElement, retFirstPurchase);
+        findElement(thirdAddonElement, retThirdPurchase);
+    }
 
-        if (retFirstPurchase > 0) {
-            System.out.println(firstAddonElement + Constants.ELEMENT_POSITION + retFirstPurchase);
-        } else {
-            System.out.println(firstAddonElement + Constants.NOT_FOUND_ELEMENT);
-        }
+    private static void printList(PurchasesList purchasesList) {
+        purchasesList.printList();
+    }
 
-        if (retThirdPurchase > 0) {
-            System.out.println(thirdAddonElement + Constants.ELEMENT_POSITION + retThirdPurchase);
+    private static void deleteElement(PurchasesList purchasesList, int index) {
+        purchasesList.deleteElement(index);
+    }
+
+    private static Purchase findAddonElement(PurchasesList additionalPurchasesList, int index) {
+        return additionalPurchasesList.getPurchases().get(index);
+    }
+
+    private static void printTable(PurchasesList purchasesList) {
+        purchasesList.printTable();
+    }
+
+    private static void findElement(Purchase addonElement, int retPurchase) {
+        if (retPurchase > 0) {
+            System.out.println(addonElement + Constants.ELEMENT_POSITION + retPurchase);
         } else {
-            System.out.println(thirdAddonElement + Constants.NOT_FOUND_ELEMENT);
+            System.out.println(addonElement + Constants.NOT_FOUND_ELEMENT);
         }
     }
 }

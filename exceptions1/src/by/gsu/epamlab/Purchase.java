@@ -1,5 +1,7 @@
 package by.gsu.epamlab;
 
+import by.gsu.epamlab.exceptions.NonPositiveArgumentException;
+
 public class Purchase {
     private String name;
     private Byn price;
@@ -7,11 +9,22 @@ public class Purchase {
 
     public Purchase(String name, Byn price, int number) {
         this.name = name;
-        this.price = price;
+        setPrice(price);
+        setNumber(number);
+    }
+
+    public final void setNumber(int number) {
+        if (number <= 0) {
+            throw new NonPositiveArgumentException(number, NumField.NUMBER);
+        }
         this.number = number;
     }
 
-    public Purchase() {
+    public final void setPrice(Byn price) {
+        if (price.getKopecks() <= 0) {
+            throw new NonPositiveArgumentException(price.getKopecks(), NumField.PRICE);
+        }
+        this.price = price;
     }
 
     public Byn getCost() {

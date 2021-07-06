@@ -1,6 +1,5 @@
 package by.gsu.epamlab;
 
-import by.gsu.epamlab.comparator.ComparatorVersion1;
 import by.gsu.epamlab.exceptions.*;
 
 import java.io.FileNotFoundException;
@@ -9,14 +8,13 @@ import java.util.*;
 
 public class PurchasesList {
     private List<Purchase> purchases;
-    private String[] str;
 
     public PurchasesList() {
-        this(null);
+        purchases = new ArrayList<>();
     }
 
     public List<Purchase> getPurchases() {
-        return purchases;
+        return new ArrayList<>(purchases);
     }
 
     public PurchasesList(String filename) {
@@ -26,10 +24,8 @@ public class PurchasesList {
                 String line = sc.nextLine();
                 try {
                     purchases.add(PurchasesFactory.getPurchase(line));
-                } catch (NullPointerException e) {
-                    System.err.println(e);
-                } catch (WrongAmountArgumentsException | IncorrectNumberException | NonPositiveNumberException | EmptyArgumentException e) {
-                    System.err.println(e.getMessage());
+                } catch (NullPointerException | NonPositiveArgumentException | CsvLineException e) {
+                    System.err.println(line + Constants.ARROW + e);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -52,12 +48,12 @@ public class PurchasesList {
     }
 
     public void deleteElement(int index) {
-        if (index <= 0 && index < purchases.size()) {
+        if (index >= 0 && index < purchases.size()) {
             purchases.remove(index);
         }
     }
 
-    public Byn totalCost() {
+    public Byn getTotalCost() {
         Byn totalCost = new Byn(0);
         for (Purchase purchase : purchases) {
             totalCost = totalCost.add(purchase.getCost());
@@ -73,7 +69,7 @@ public class PurchasesList {
             String[] line = formatLine(purchase);
             f.format(tableFormat, line[0], line[1], line[2], line[3], line[4]);
         }
-        f.format(tableFormat, "Total cost", "", "", "", totalCost());
+        f.format(tableFormat, "Total cost", "", "", "", getTotalCost());
         System.out.println(f);
     }
 
@@ -97,17 +93,5 @@ public class PurchasesList {
 
     public int searchIndexElement(Purchase purchase, Comparator<Purchase> comparator) {
         return Collections.binarySearch(purchases, purchase, comparator);
-    }
-
-    public static Comparator<Purchase> createComparator(String name) {
-        String fullName = Constants.COMPARATOR_PATH + name;
-        Comparator<Purchase> comparator = new ComparatorVersion1();
-        try {
-            Class classComparator = Class.forName(fullName);
-            comparator = (Comparator<Purchase>) classComparator.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return comparator;
     }
 }
