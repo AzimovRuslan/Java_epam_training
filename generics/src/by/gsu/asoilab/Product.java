@@ -1,6 +1,8 @@
 package by.gsu.asoilab;
 
-public class Product {
+import by.gsu.asoilab.interfaces.ItemInterface;
+
+public class Product implements ItemInterface {
     private String name;
     private Byn price;
 

@@ -1,19 +1,22 @@
 package by.gsu.asoilab;
 
+import by.gsu.asoilab.interfaces.ItemInterface;
+
 public class Purchase{
-    private Product product;
+    private ItemInterface item;
     private double number;
 
-    public Purchase(Product product, double number) {
-        this.product = product;
+    public Purchase(ItemInterface item, double number) {
+        this.item = item;
         this.number = number;
     }
+
     public Byn getCost() {
-        return product.getPrice().mul(number, RoundMethod.ROUND, 3);
+        return item.getPrice().mul(number, RoundMethod.ROUND, 3);
     }
 
     @Override
     public String toString() {
-        return product + ";" + number;
+        return item + ";" + number + ";" + getCost();
     }
 }

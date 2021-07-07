@@ -34,7 +34,7 @@ public class PurchaseUtils {
         boolean flag = false;
         for (Purchase p : purchases) {
             if (purchase.getCost().getKopecks() == p.getCost().getKopecks()) {
-                System.out.println(p);
+                System.out.println(p + " - buy at the same price");
                 flag = true;
             }
         }
