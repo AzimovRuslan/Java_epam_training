@@ -1,21 +1,21 @@
 package by.gsu.asoilab;
 
-import by.gsu.asoilab.interfaces.ItemInterface;
+import by.gsu.asoilab.interfaces.Priceable;
 
-public class Service implements ItemInterface {
+public class Service implements Priceable {
     private String name;
     private Byn totalCost;
-    private int numberUsers;
+    private int numberOfUsers;
 
-    public Service(String name, Byn totalCost, int numberUsers) {
+    public Service(String name, Byn totalCost, int numberOfUsers) {
         this.name = name;
         this.totalCost = totalCost;
-        this.numberUsers = numberUsers;
+        this.numberOfUsers = numberOfUsers;
     }
 
     @Override
     public Byn getPrice() {
-        return totalCost.div(numberUsers, RoundMethod.ROUND, 3);
+        return totalCost.mul(1.0 / numberOfUsers, RoundMethod.CEIL, 0);
     }
 
     @Override
