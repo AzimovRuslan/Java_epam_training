@@ -16,46 +16,30 @@ public class PurchaseUtils {
     }
 
     public void printCost() {
-        System.out.println("cost = " + purchase.getCost() + " BYN");
+        System.out.println(Constants.COST + purchase.getCost() + Constants.BYN);
     }
 
     public void printCostDiff(Purchase p) {
-//        int diff = purchase.getCost().getKopecks() - p.getCost().getKopecks();
-//        if (diff > 0) {
-//            System.out.println("+ diff = " + new Byn(diff) + " BYN");
-//        } else if (diff < 0) {
-//            System.out.println("- diff = " + new Byn(Math.abs(diff)) + " BYN");
-//        } else {
-//            System.out.println("  diff = " + new Byn(diff) + " BYN");
-//        }
-        Byn greaterCost;
-        Byn lesserCost;
-        Byn costDiff;
-        if (purchase.getCost().getKopecks() > p.getCost().getKopecks()) {
-            greaterCost = purchase.getCost();
-            lesserCost = p.getCost();
-            costDiff = greaterCost.sub(lesserCost);
-            System.out.println("+ diff = " + costDiff + " BYN");
-        } else if (purchase.getCost().getKopecks() < p.getCost().getKopecks()) {
-            greaterCost = p.getCost();
-            lesserCost = purchase.getCost();
-            costDiff = greaterCost.sub(lesserCost);
-            System.out.println("- diff = " + costDiff + " BYN");
+        int diff = purchase.getCost().getKopecks() - p.getCost().getKopecks();
+        String diffStr = "";
+        if (diff > 0) {
+            diffStr = Constants.PLUS + Constants.DIFF;
+        } else if (diff < 0) {
+            diffStr = Constants.MINUS + Constants.DIFF;
+            diff = Math.abs(diff);
         } else {
-            System.out.println("diff = 0 BYN");
+            diffStr = Constants.DIFF;
         }
+        System.out.println(diffStr + new Byn(diff) + Constants.BYN);
     }
 
     public void printSameCost(Purchase[] purchases) {
         boolean flag = false;
         for (Purchase p : purchases) {
-            if (purchase.getCost().getKopecks() == p.getCost().getKopecks()) {
-                System.out.println(p + " - buy at the same price");
+            if (purchase.getCost().compareTo(p.getCost()) == 0) {
                 flag = true;
             }
         }
-        if (!flag) {
-            System.out.println("purchase not found");
-        }
+        System.out.println(flag ? Constants.HAVE_PURCHASE : Constants.DONT_HAVE_PURCHASE);
     }
 }

@@ -15,8 +15,12 @@ public class Product implements Priceable {
         return price;
     }
 
+    public String fieldsToString() {
+        return name + Constants.DELIMITER + price;
+    }
+
     @Override
     public String toString() {
-        return name + ";" + price;
+        return fieldsToString();
     }
 }

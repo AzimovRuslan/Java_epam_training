@@ -1,4 +1,5 @@
 import by.gsu.asoilab.*;
+import by.gsu.asoilab.interfaces.Priceable;
 
 public class Runner {
     public static void main(String[] args) {
@@ -22,11 +23,11 @@ public class Runner {
 
         Service subscription = new Service("subscription", new Byn(7560), 5);
         PurchaseUtils pu4 = new PurchaseUtils(new Purchase(subscription, 2.25));
-        Purchase purchase = pu4.getPurchase();
-        System.out.println(purchase);
+        Priceable item = pu4.getPurchase().getItem();
+        System.out.println(item);
         pu4.printCost();
 
-        Purchase[] purchases = {p1, p3, purchase};
+        Purchase[] purchases = {p1, p3, pu4.getPurchase()};
         pu2.printSameCost(purchases);
     }
 }

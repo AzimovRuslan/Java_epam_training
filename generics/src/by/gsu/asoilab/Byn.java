@@ -1,6 +1,6 @@
 package by.gsu.asoilab;
 
-public class Byn{
+public class Byn implements Comparable<Byn>{
     private int kopecks;
 
     public int getKopecks() {
@@ -27,5 +27,10 @@ public class Byn{
     @Override
     public String toString() {
         return String.format("%d.%02d", kopecks / 100, kopecks % 100);
+    }
+
+    @Override
+    public int compareTo(Byn byn) {
+        return kopecks - byn.kopecks;
     }
 }

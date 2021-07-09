@@ -13,4 +13,9 @@ public class DiscountProduct extends Product{
     public Byn getPrice() {
         return super.getPrice().sub(discount);
     }
+
+    @Override
+    public String fieldsToString() {
+        return super.fieldsToString() + Constants.DELIMITER + discount;
+    }
 }
