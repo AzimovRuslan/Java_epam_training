@@ -20,6 +20,6 @@ public class Service implements Priceable {
 
     @Override
     public String toString() {
-        return name + ";" + getPrice();
+        return name + Constants.DELIMITER + getPrice();
     }
 }

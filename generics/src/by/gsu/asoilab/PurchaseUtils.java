@@ -2,7 +2,7 @@ package by.gsu.asoilab;
 
 import by.gsu.asoilab.interfaces.Priceable;
 
-public class PurchaseUtils <T extends Priceable, E extends Number> {
+public class PurchaseUtils<T extends Priceable, E extends Number> {
     private Purchase<T, E> purchase;
 
     public PurchaseUtils(Purchase<T, E> purchase) {
@@ -21,7 +21,7 @@ public class PurchaseUtils <T extends Priceable, E extends Number> {
         System.out.println(Constants.COST + purchase.getCost() + Constants.BYN);
     }
 
-    public void printCostDiff(Purchase p) {
+    public void printCostDiff(Purchase<? extends Priceable, ? extends Number> p) {
         int diff = purchase.getCost().getKopecks() - p.getCost().getKopecks();
         String diffStr = "";
         if (diff > 0) {
@@ -35,9 +35,9 @@ public class PurchaseUtils <T extends Priceable, E extends Number> {
         System.out.println(diffStr + new Byn(diff) + Constants.BYN);
     }
 
-    public void printSameCost(Purchase ... purchases) {
+    public void printSameCost(Purchase<? extends Priceable, ? extends Number>... purchases) {
         boolean flag = false;
-        for (Purchase p : purchases) {
+        for (Purchase<? extends Priceable, ? extends Number> p : purchases) {
             if (purchase.getCost().compareTo(p.getCost()) == 0) {
                 flag = true;
                 break;

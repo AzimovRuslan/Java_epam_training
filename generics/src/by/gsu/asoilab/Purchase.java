@@ -21,7 +21,7 @@ public class Purchase<T extends Priceable, E extends Number> implements Comparab
 
     @Override
     public String toString() {
-        return item + ";" + quantity + ";" + getCost();
+        return item + Constants.DELIMITER + quantity + Constants.DELIMITER + getCost();
     }
 
     @Override
