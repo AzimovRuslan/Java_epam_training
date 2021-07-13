@@ -2,11 +2,11 @@ package by.gsu.asoilab;
 
 import by.gsu.asoilab.interfaces.Priceable;
 
-public class Purchase<T extends Priceable, E extends Number> implements Comparable<Purchase>{
+public class Purchase<T extends Priceable, N extends Number>{
     private T item;
-    private E quantity;
+    private N quantity;
 
-    public Purchase(T item, E quantity) {
+    public Purchase(T item, N quantity) {
         this.item = item;
         this.quantity = quantity;
     }
@@ -22,10 +22,5 @@ public class Purchase<T extends Priceable, E extends Number> implements Comparab
     @Override
     public String toString() {
         return item + Constants.DELIMITER + quantity + Constants.DELIMITER + getCost();
-    }
-
-    @Override
-    public int compareTo(Purchase purchase) {
-        return getCost().compareTo(purchase.getCost());
     }
 }

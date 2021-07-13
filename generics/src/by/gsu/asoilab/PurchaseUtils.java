@@ -2,14 +2,14 @@ package by.gsu.asoilab;
 
 import by.gsu.asoilab.interfaces.Priceable;
 
-public class PurchaseUtils<T extends Priceable, E extends Number> {
-    private Purchase<T, E> purchase;
+public class PurchaseUtils<T extends Priceable, N extends Number> {
+    private Purchase<T, N> purchase;
 
-    public PurchaseUtils(Purchase<T, E> purchase) {
+    public PurchaseUtils(Purchase<T, N> purchase) {
         this.purchase = purchase;
     }
 
-    public Purchase<T, E> getPurchase() {
+    public Purchase<T, N> getPurchase() {
         return purchase;
     }
 
