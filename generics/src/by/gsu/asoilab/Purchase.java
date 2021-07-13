@@ -2,16 +2,16 @@ package by.gsu.asoilab;
 
 import by.gsu.asoilab.interfaces.Priceable;
 
-public class Purchase implements Comparable<Purchase>{
-    private Priceable item;
-    private Number quantity;
+public class Purchase<T extends Priceable, E extends Number> implements Comparable<Purchase>{
+    private T item;
+    private E quantity;
 
-    public Purchase(Priceable item, Number quantity) {
+    public Purchase(T item, E quantity) {
         this.item = item;
         this.quantity = quantity;
     }
 
-    public Priceable getItem() {
+    public T getItem() {
         return item;
     }
 

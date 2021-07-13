@@ -22,9 +22,10 @@ public class Runner {
         pu3.printCost();
 
         Service subscription = new Service("subscription", new Byn(7560), 5);
-        PurchaseUtils pu4 = new PurchaseUtils(new Purchase(subscription, 2.25));
-        Priceable item = pu4.getPurchase().getItem();
-        System.out.println(item);
+        Purchase<Service, Double> purchase = new Purchase<>(subscription, 2.25);
+        PurchaseUtils<Service, Double> pu4 = new PurchaseUtils<>(purchase);
+        Service service = pu4.getPurchase().getItem();
+        System.out.println(service);
         pu4.printCost();
 
         Purchase[] purchases = {p1, p3, pu4.getPurchase()};
