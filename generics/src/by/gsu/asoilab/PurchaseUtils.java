@@ -35,11 +35,12 @@ public class PurchaseUtils <T extends Priceable, E extends Number> {
         System.out.println(diffStr + new Byn(diff) + Constants.BYN);
     }
 
-    public void printSameCost(Purchase[] purchases) {
+    public void printSameCost(Purchase ... purchases) {
         boolean flag = false;
         for (Purchase p : purchases) {
             if (purchase.getCost().compareTo(p.getCost()) == 0) {
                 flag = true;
+                break;
             }
         }
         System.out.println(flag ? Constants.HAVE_PURCHASE : Constants.DONT_HAVE_PURCHASE);

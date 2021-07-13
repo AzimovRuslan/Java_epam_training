@@ -28,7 +28,6 @@ public class Runner {
         System.out.println(service);
         pu4.printCost();
 
-        Purchase[] purchases = {p1, p3, pu4.getPurchase()};
-        pu2.printSameCost(purchases);
+        pu2.printSameCost(p1, p3, pu4.getPurchase());
     }
 }

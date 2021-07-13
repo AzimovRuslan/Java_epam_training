@@ -1,7 +1,7 @@
 package by.gsu.asoilab;
 
 public class Byn implements Comparable<Byn>{
-    private int kopecks;
+    private final int kopecks;
 
     public int getKopecks() {
         return kopecks;
@@ -12,16 +12,11 @@ public class Byn implements Comparable<Byn>{
     }
 
     public Byn sub(Byn byn) {
-        kopecks -= byn.kopecks;
-        return this;
+        return new Byn(kopecks - byn.kopecks);
     }
 
     public Byn mul(double value, RoundMethod roundMethod, int d) {
         return new Byn(roundMethod.round(kopecks * value, d));
-    }
-
-    public Byn div(int value, RoundMethod roundMethod, int d) {
-        return new Byn(roundMethod.round(kopecks / value, d));
     }
 
     @Override
