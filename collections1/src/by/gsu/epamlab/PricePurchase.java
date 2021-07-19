@@ -10,6 +10,11 @@ public class PricePurchase extends Purchase{
         this.discount = new Byn(scanner.nextInt());
     }
 
+    public PricePurchase(String name, Byn price, int number, Byn discount) {
+        super(name, price, number);
+        this.discount = discount;
+    }
+
     @Override
     public Byn getCost() {
         return super.getCost().sub(discount.mul(getNumber()));
