@@ -1,5 +1,6 @@
 package by.gsu.epamlab;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Purchase {
@@ -24,11 +25,19 @@ public class Purchase {
     }
 
     public Byn getCost() {
-        return new Byn(price).mul(number);
+        return price.mul(number, RoundMethod.ROUND, 0);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getNumber() {
         return number;
+    }
+
+    public Byn getPrice() {
+        return price;
     }
 
     protected String fieldsToString() {
@@ -39,12 +48,17 @@ public class Purchase {
     public String toString() {
         return fieldsToString() + ";" + getCost();
     }
-//
-//    @Override
-//    public boolean equals(Object object) {
-//        if (this == object) return true;
-//        if (object == null ) return false;
-//        if(!(object instanceof Purchase)) return false;Purchase purchase = (Purchase) object;
-//        return Objects.equals(name, purchase.name) && Objects.equals(price, purchase.price);
-//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Purchase)) return false;
+        Purchase purchase = (Purchase) o;
+        return getName().equals(purchase.getName()) && getPrice().equals(purchase.getPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * name.hashCode() + price.hashCode();
+    }
 }

@@ -1,5 +1,6 @@
 package by.gsu.epamlab;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class PricePurchase extends Purchase{
@@ -15,9 +16,13 @@ public class PricePurchase extends Purchase{
         this.discount = discount;
     }
 
+    public Byn getDiscount() {
+        return discount;
+    }
+
     @Override
     public Byn getCost() {
-        return super.getCost().sub(discount.mul(getNumber()));
+        return super.getCost().sub(discount.mul(getNumber(), RoundMethod.ROUND, 0));
     }
 
     @Override
