@@ -8,7 +8,7 @@ public class Runner {
     public static void main(String[] args) {
         try(Scanner sc = new Scanner(new FileReader(Constants.FILE_NAME))) {
             Map<Purchase, WeekDay> firstMap = new HashMap<>();
-            Map<Purchase, WeekDay> lustMap = new HashMap<>();
+            Map<Purchase, WeekDay> lastMap = new HashMap<>();
             Map<WeekDay, List<Purchase>> enumeratedMap = new EnumMap<>(WeekDay.class);
             List<PricePurchase> purchases = new ArrayList<>();
 
@@ -16,7 +16,7 @@ public class Runner {
                 Purchase purchase = PurchaseFactory.getPurchase(sc.nextLine());
                 WeekDay weekday = WeekDay.valueOf(sc.nextLine());
 
-                lustMap.put(purchase, weekday);
+                lastMap.put(purchase, weekday);
 
                 if (!firstMap.containsKey(purchase)) {
                     firstMap.put(purchase, weekday);
@@ -35,27 +35,28 @@ public class Runner {
             printMap(firstMap);
 
             //4
-            printMap(lustMap);
+            printMap(lastMap);
 
             //5
-            findWeekdayForPurchase(findElement(firstMap, new Purchase("bread", new Byn(155), 0)));
-            findWeekdayForPurchase(findElement(lustMap, new Purchase("bread", new Byn(155), 0)));
+            Purchase elementToSearch = new Purchase("bread", new Byn(155), 0);
+            findWeekdayForPurchase(findElement(firstMap, elementToSearch));
+            findWeekdayForPurchase(findElement(lastMap, elementToSearch));
 
             //6
-            findWeekdayForPurchase(findElement(lustMap, new Purchase("bread", new Byn(170), 0)));
+            findWeekdayForPurchase(findElement(lastMap, new Purchase("bread", new Byn(170), 0)));
 
             //7
             deleteElementByKey(firstMap, new Purchase("meat", new Byn(0), 0));
 
             //8
-            deleteElementByValue(lustMap, elementForDelete(lustMap, WeekDay.FRIDAY));
+            deleteElementByValue(lastMap, elementForDelete(lastMap, WeekDay.FRIDAY));
 
             //9
             printMap(firstMap);
-            printMap(lustMap);
+            printMap(lastMap);
 
             //11
-            System.out.println("total cost = " + totalCost(purchases) + "BYN");
+            System.out.println(Constants.TOTAL_COST + totalCost(purchases) + Constants.BYN);
 
             //13
             printMap(enumeratedMap);
@@ -67,7 +68,7 @@ public class Runner {
             System.out.println(findElement(enumeratedMap, WeekDay.MONDAY));
 
         } catch (FileNotFoundException e) {
-            System.err.println("File not found");
+            System.err.println(Constants.FILE_NOT_FOUND);
         }
     }
 
@@ -75,23 +76,23 @@ public class Runner {
         if (map.size() > 0) {
             for (Map.Entry<Purchase, WeekDay> entry : map.entrySet()) {
                 if (entry.getValue() == WeekDay.MONDAY || entry.getValue() == WeekDay.TUESDAY || entry.getValue() == WeekDay.WEDNESDAY || entry.getValue() == WeekDay.THURSDAY || entry.getValue() == WeekDay.FRIDAY) {
-                    System.out.println(entry.getKey() + "=>" + entry.getValue());
+                    System.out.println(entry.getKey() + Constants.MAP_DELIMITER + entry.getValue());
                 } else {
-                    System.out.println("element not found");
+                    System.out.println(Constants.ELEMENT_NOT_FOUND);
                 }
             }
         } else {
-            System.out.println("element not found");
+            System.out.println(Constants.ELEMENT_NOT_FOUND);
         }
     }
 
     private static<K, V> void printMap(Map<K, V> map) {
         if (map.size() > 0) {
             for (Map.Entry<K, V> entry : map.entrySet()) {
-                System.out.println(entry.getKey() + "=>" + entry.getValue());
+                System.out.println(entry.getKey() + Constants.MAP_DELIMITER + entry.getValue());
             }
         } else {
-            System.out.println("empty map");
+            System.out.println(Constants.EMPTY_MAP);
         }
     }
 
@@ -151,7 +152,7 @@ public class Runner {
     private static void printCostForWeekdayByEnumMap(Map<WeekDay, List<Purchase>> map) {
         for(Map.Entry<WeekDay, List<Purchase>> entry : map.entrySet()) {
             if (entry.getKey() == WeekDay.MONDAY || entry.getKey() == WeekDay.TUESDAY || entry.getKey() == WeekDay.WEDNESDAY || entry.getKey() == WeekDay.THURSDAY || entry.getKey() == WeekDay.FRIDAY) {
-                System.out.println("total price for " + entry.getKey() + " = " + totalCost(entry.getValue()) + " BYN");
+                System.out.println(Constants.TOTAL_COST_FOR_DAY + entry.getKey() + Constants.SPACE + totalCost(entry.getValue()) + Constants.BYN);
             }
         }
     }
