@@ -8,10 +8,6 @@ public class PurchaseFactory {
         Byn price;
         int number = 0;
 
-//        if (len > Constants.PRICE_PURCHASE_COUNT || len < Constants.PURCHASE_COUNT) {
-//            System.out.println("Incorrect file");
-//        }
-
         name = str[0];
         price = new Byn(Integer.parseInt(str[1]));
         number = Integer.parseInt(str[2]);
