@@ -41,11 +41,11 @@ public class Runner {
 
             //5
             Purchase elementToSearch = new Purchase("bread", new Byn(155), 0);
-            findAndShow(findWeekDayForPurchases(firstPurchasesMap), elementToSearch, "the first weekday for bread with price 1.55");
-            findAndShow(findWeekDayForPurchases(lastPurchasesMap), elementToSearch, "the first weekday for bread with price 1.55");
+            findAndShow(findWeekDayForPurchases(firstPurchasesMap), elementToSearch, Constants.THE_LAST_WEEKDAY_FOR_BREAD + " 1.55");
+            findAndShow(findWeekDayForPurchases(lastPurchasesMap), elementToSearch, Constants.THE_FIRST_WEEKDAY_FOR_BREAD + " 1.55");
 
             //6
-            findAndShow(findWeekDayForPurchases(lastPurchasesMap), new Purchase("bread", new Byn(170), 0), "the first weekday for bread with price 1.70");
+            findAndShow(findWeekDayForPurchases(lastPurchasesMap), new Purchase("bread", new Byn(170), 0), Constants.THE_FIRST_WEEKDAY_FOR_BREAD + " 1.70");
 
             //7
             removeEntries(firstPurchasesMap, new EntryChecker<Purchase, WeekDay>() {
@@ -61,7 +61,7 @@ public class Runner {
 
                 @Override
                 public boolean check(Map.Entry<Purchase, WeekDay> entry) {
-                    return entry.getValue().equals(WeekDay.FRIDAY);
+                    return WeekDay.FRIDAY == entry.getValue();
                 }
             });
 
@@ -79,7 +79,7 @@ public class Runner {
             printCostForWeekdayByEnumMap(dayPurchasesMap);
 
             //15
-            findAndShow(dayPurchasesMap, WeekDay.MONDAY, "all purchases on MONDAY");
+            findAndShow(dayPurchasesMap, WeekDay.MONDAY, Constants.ALL_PURCHASES_ON_MONDAY);
         } catch (FileNotFoundException e) {
             System.err.println(Constants.FILE_NOT_FOUND);
         }
@@ -123,16 +123,6 @@ public class Runner {
         } else {
             System.out.println(header + Constants.CARRYOVER + Constants.ELEMENT_NOT_FOUND);
         }
-    }
-
-    private static List<Purchase> elementForDelete(Map<Purchase, WeekDay> map, WeekDay weekDay) {
-        List<Purchase> purchases = new ArrayList<>();
-        for(Map.Entry<Purchase, WeekDay> entry : map.entrySet()) {
-            if (entry.getValue().equals(weekDay)) {
-                purchases.add(entry.getKey());
-            }
-        }
-        return purchases;
     }
 
     private static<K, V> void removeEntries(Map<K, V> map, EntryChecker<K, V> checker) {

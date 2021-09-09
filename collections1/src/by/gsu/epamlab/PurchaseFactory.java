@@ -8,9 +8,9 @@ public class PurchaseFactory {
         Byn price;
         int number = 0;
 
-        name = str[0];
-        price = new Byn(Integer.parseInt(str[1]));
-        number = Integer.parseInt(str[2]);
+        name = str[Constants.FIRST_ELEMENT];
+        price = new Byn(Integer.parseInt(str[Constants.SECOND_ELEMENT]));
+        number = Integer.parseInt(str[Constants.THIRD_ELEMENT]);
 
         if (len == 3) {
             return new Purchase(name, price, number);
