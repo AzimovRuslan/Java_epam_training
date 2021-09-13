@@ -12,6 +12,7 @@ public class Constants {
     public static String SPACE = " ";
     public static String CARRYOVER = "\n";
     public static String MEAT = "meat";
+    public static String MILK = "milk";
     public static String FIRST_PURCHASE_MAP = "first purchase map";
     public static String LAST_PURCHASE_MAP = "last purchase map";
     public static String DAY_PURCHASE_MAP = "day purchase map";

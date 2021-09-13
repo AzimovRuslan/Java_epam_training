@@ -24,10 +24,11 @@ public class Runner {
                     firstPurchasesMap.put(purchase, weekday);
                 }
 
-                if (!dayPurchasesMap.containsKey(weekday)) {
-                    dayPurchasesMap.put(weekday, new ArrayList<>());
+                List<Purchase> l = dayPurchasesMap.get(weekday);
+                if (l == null) {
+                    dayPurchasesMap.put(weekday, l = new ArrayList<Purchase>());
                 }
-                dayPurchasesMap.get(weekday).add(purchase);
+                l.add(purchase);
 
                 if (purchase instanceof PricePurchase) {
                     priceDiscountPurchases.add((PricePurchase) purchase);
@@ -52,7 +53,7 @@ public class Runner {
 
                 @Override
                 public boolean check(Map.Entry<Purchase, WeekDay> entry) {
-                    return entry.getKey().getName().equals(Constants.MEAT);
+                    return Constants.MEAT.equals(entry.getKey().getName());
                 }
             });
 
@@ -62,6 +63,22 @@ public class Runner {
                 @Override
                 public boolean check(Map.Entry<Purchase, WeekDay> entry) {
                     return WeekDay.FRIDAY == entry.getValue();
+                }
+            });
+
+            removeEntries(dayPurchasesMap, new EntryChecker<WeekDay, List<Purchase>>() {
+                @Override
+                public boolean check(Map.Entry<WeekDay, List<Purchase>> entry) {
+                    String milk = "";
+
+                    for (int i = 0; i < entry.getValue().size(); i++) {
+                        String name = entry.getValue().get(i).getName();
+                        if (Constants.MILK.equals(name)) {
+                            milk = name;
+                        }
+                    }
+
+                    return Constants.MILK.equals(milk);
                 }
             });
 
@@ -76,7 +93,9 @@ public class Runner {
             printMap(dayPurchasesMap, Constants.DAY_PURCHASE_MAP);
 
             //14
-            printCostForWeekdayByEnumMap(dayPurchasesMap);
+            for(Map.Entry<WeekDay, List<Purchase>> entry : dayPurchasesMap.entrySet()) {
+                System.out.println(Constants.TOTAL_COST_FOR_DAY + entry.getKey() + Constants.MAP_DELIMITER + getTotalCost(entry.getValue()));
+            }
 
             //15
             findAndShow(dayPurchasesMap, WeekDay.MONDAY, Constants.ALL_PURCHASES_ON_MONDAY);
@@ -107,28 +126,17 @@ public class Runner {
     }
 
     private static <K, V> void findAndShow(Map<K, V> map, K searchKey, String header) {
-        Map<K, V> additionalMap = new HashMap<>();
-        if (map.size() > 0) {
-            for (Map.Entry<K, V> entry : map.entrySet()) {
-                if (entry.getKey().equals(searchKey)) {
-                    additionalMap.put(entry.getKey(), entry.getValue());
-                }
-            }
+        V key = map.get(searchKey);
+        if (key != null) {
+            System.out.println(header + Constants.MAP_DELIMITER + key);
         } else {
-            System.out.println(Constants.ELEMENT_NOT_FOUND);
-        }
-
-        if (additionalMap.size() > 0) {
-            printMap(additionalMap, header);
-        } else {
-            System.out.println(header + Constants.CARRYOVER + Constants.ELEMENT_NOT_FOUND);
+            System.out.println(header + Constants.MAP_DELIMITER + Constants.ELEMENT_NOT_FOUND);
         }
     }
 
     private static<K, V> void removeEntries(Map<K, V> map, EntryChecker<K, V> checker) {
         for(Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator(); iterator.hasNext();) {
-            Map.Entry<K, V> entry = iterator.next();
-            if (checker.check(entry)) {
+            if (checker.check(iterator.next())) {
                 iterator.remove();
             }
         }
@@ -141,13 +149,5 @@ public class Runner {
             cost = cost.add(purchase.getCost());
         }
         return cost;
-    }
-
-    private static void printCostForWeekdayByEnumMap(Map<WeekDay, List<Purchase>> map) {
-        for(Map.Entry<WeekDay, List<Purchase>> entry : map.entrySet()) {
-            if (entry.getKey() == WeekDay.MONDAY || entry.getKey() == WeekDay.TUESDAY || entry.getKey() == WeekDay.WEDNESDAY || entry.getKey() == WeekDay.THURSDAY || entry.getKey() == WeekDay.FRIDAY) {
-                System.out.println(Constants.TOTAL_COST_FOR_DAY + entry.getKey() + Constants.SPACE + getTotalCost(entry.getValue()) + Constants.BYN);
-            }
-        }
     }
 }

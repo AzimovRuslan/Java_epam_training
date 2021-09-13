@@ -3,10 +3,6 @@ package by.gsu.epamlab;
 public class Byn implements Comparable<Byn>{
     private final int kopecks;
 
-    public int getKopecks() {
-        return kopecks;
-    }
-
     public Byn(int kopecks){
         this.kopecks = kopecks;
     }
