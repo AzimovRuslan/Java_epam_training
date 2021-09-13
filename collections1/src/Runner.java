@@ -24,11 +24,11 @@ public class Runner {
                     firstPurchasesMap.put(purchase, weekday);
                 }
 
-                List<Purchase> l = dayPurchasesMap.get(weekday);
-                if (l == null) {
-                    dayPurchasesMap.put(weekday, l = new ArrayList<Purchase>());
+                List<Purchase> purchases = dayPurchasesMap.get(weekday);
+                if (purchases == null) {
+                    dayPurchasesMap.put(weekday, purchases = new ArrayList<Purchase>());
                 }
-                l.add(purchase);
+                purchases.add(purchase);
 
                 if (purchase instanceof PricePurchase) {
                     priceDiscountPurchases.add((PricePurchase) purchase);
@@ -65,23 +65,7 @@ public class Runner {
                     return WeekDay.FRIDAY == entry.getValue();
                 }
             });
-
-            removeEntries(dayPurchasesMap, new EntryChecker<WeekDay, List<Purchase>>() {
-                @Override
-                public boolean check(Map.Entry<WeekDay, List<Purchase>> entry) {
-                    String milk = "";
-
-                    for (int i = 0; i < entry.getValue().size(); i++) {
-                        String name = entry.getValue().get(i).getName();
-                        if (Constants.MILK.equals(name)) {
-                            milk = name;
-                        }
-                    }
-
-                    return Constants.MILK.equals(milk);
-                }
-            });
-
+            
             //9
             printMap(firstPurchasesMap, Constants.FIRST_PURCHASE_MAP);
             printMap(lastPurchasesMap, Constants.LAST_PURCHASE_MAP);
@@ -99,6 +83,25 @@ public class Runner {
 
             //15
             findAndShow(dayPurchasesMap, WeekDay.MONDAY, Constants.ALL_PURCHASES_ON_MONDAY);
+
+            removeEntries(dayPurchasesMap, new EntryChecker<WeekDay, List<Purchase>>() {
+                @Override
+                public boolean check(Map.Entry<WeekDay, List<Purchase>> entry) {
+                    boolean isFound = false;
+
+                    for (Purchase purchase : entry.getValue()) {
+                        if (Constants.MILK.equals(purchase.getName())) {
+                            isFound = true;
+                            break;
+                        }
+                    }
+
+                    return isFound;
+                }
+            });
+
+            printMap(dayPurchasesMap, Constants.DAY_PURCHASE_MAP);
+
         } catch (FileNotFoundException e) {
             System.err.println(Constants.FILE_NOT_FOUND);
         }
