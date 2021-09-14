@@ -65,7 +65,7 @@ public class Runner {
                     return WeekDay.FRIDAY == entry.getValue();
                 }
             });
-            
+
             //9
             printMap(firstPurchasesMap, Constants.FIRST_PURCHASE_MAP);
             printMap(lastPurchasesMap, Constants.LAST_PURCHASE_MAP);
