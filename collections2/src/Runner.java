@@ -8,11 +8,8 @@ import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
-        List<Segment> segments;
-
-        final String FILENAME = "src/in.txt";
-        try(Scanner sc = new Scanner(new FileReader(FILENAME))) {
-            segments = new ArrayList<>();
+        try(Scanner sc = new Scanner(new FileReader(Constants.PATH))) {
+            List<Segment> segments = new ArrayList<>();
 
             while(sc.hasNextLine()) {
                 String line = sc.nextLine();
