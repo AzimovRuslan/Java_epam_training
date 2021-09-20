@@ -18,8 +18,7 @@ public class Runner {
                 String line = sc.nextLine();
                 String[] elements = line.trim().substring(1).trim().split("[^-\\d\\.e]+");
                 Segment segment = new Segment(elements);
-                segment.calculationLen();
-
+                Collections.sort(segments);
                 int index = Collections.binarySearch(segments, segment);
                 if (index > -1) {
                     segments.get(index).increaseNum();
@@ -27,9 +26,7 @@ public class Runner {
                     segments.add(segment);
                 }
             }
-            System.out.println("--------------------------------------");
             printList(segments);
-            System.out.println("--------------------------------------");
 
             Collections.sort(segments, new Comparator<Segment>() {
                 @Override

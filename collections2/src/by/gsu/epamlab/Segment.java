@@ -2,23 +2,20 @@ package by.gsu.epamlab;
 
 import constants.Constants;
 
-import java.util.Objects;
-
 public class Segment implements Comparable<Segment>{
-    private String[] elements;
     private int num = 1;
     private int len = 0;
 
     public Segment(String[] elements) {
-        this.elements = elements;
+        len = calculationLen(elements);
     }
 
-    public void calculationLen() {
-        float x1 = Float.parseFloat(elements[Constants.FIRST_ELEMENT]);
-        float y1 = Float.parseFloat(elements[Constants.SECOND_ELEMENT]);
-        float x2 = Float.parseFloat(elements[Constants.THREE_ELEMENT]);
-        float y2 = Float.parseFloat(elements[Constants.FOUR_ELEMENT]);
-        len = (int) Math.round(Math.sqrt(((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))));
+    private static int calculationLen(String[] elements) {
+        double x1 = Double.parseDouble(elements[Constants.FIRST_ELEMENT]);
+        double y1 = Double.parseDouble(elements[Constants.SECOND_ELEMENT]);
+        double x2 = Double.parseDouble(elements[Constants.THREE_ELEMENT]);
+        double y2 = Double.parseDouble(elements[Constants.FOUR_ELEMENT]);
+        return (int) Math.round(Math.sqrt(((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))));
     }
 
     public void increaseNum() {
