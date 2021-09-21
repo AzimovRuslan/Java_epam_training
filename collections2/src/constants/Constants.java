@@ -8,4 +8,5 @@ public class Constants {
     public static int FOUR_ELEMENT = 3;
     public static String DELIMITER = ";";
     public static String PATH = "src/in.txt";
+    public static String REGEX = "[\\s(;)]+";
 }
