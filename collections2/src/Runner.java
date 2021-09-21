@@ -9,30 +9,27 @@ import java.util.List;
 public class Runner {
     public static void main(String[] args) {
         try(Scanner sc = new Scanner(new FileReader(Constants.PATH))) {
-            List<NumLen> segments = new ArrayList<>();
-
+            Set<NumLen> setNumLen = new HashSet<>();
             while(sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] elements = line.trim().substring(1).trim().split(Constants.REGEX);
                 int len = getLen(elements);
                 NumLen numLen = new NumLen(len);
-
-                int index = Collections.binarySearch(segments, numLen);
-                if (index >= 0) {
-                    segments.get(index).increaseNum();
-                } else {
-                    segments.add(-index - 1, numLen);
-                }
+                setNumLen.add(numLen);
             }
-            printList(segments);
 
-            Collections.sort(segments, new Comparator<NumLen>() {
+            List<NumLen> numLens = new ArrayList<>(setNumLen);
+
+            printList(numLens);
+
+            Collections.sort(numLens, new Comparator<NumLen>() {
                 @Override
                 public int compare(NumLen o1, NumLen o2) {
                     return o2.getNum() - o1.getNum();
                 }
             });
-            printList(segments);
+
+            printList(numLens);
 
         } catch (FileNotFoundException e) {
             System.err.println(Constants.FILE_NOT_FOUND);

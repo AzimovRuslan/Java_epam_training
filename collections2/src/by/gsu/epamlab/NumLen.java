@@ -2,17 +2,13 @@ package by.gsu.epamlab;
 
 import constants.Constants;
 
-public class NumLen implements Comparable<NumLen>{
+public class NumLen {
     private final int len;
     private int num;
 
     public NumLen(int len) {
         this.len = len;
         num = 1;
-    }
-
-    public void increaseNum() {
-        num++;
     }
 
     public int getNum() {
@@ -25,7 +21,25 @@ public class NumLen implements Comparable<NumLen>{
     }
 
     @Override
-    public int compareTo(NumLen o) {
-        return len - o.len;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final NumLen other = (NumLen) obj;
+        if (len != other.len)
+            return false;
+        other.num++;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + len;
+        return result;
     }
 }
