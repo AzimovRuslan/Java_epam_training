@@ -9,36 +9,47 @@ import java.util.List;
 public class Runner {
     public static void main(String[] args) {
         try(Scanner sc = new Scanner(new FileReader(Constants.PATH))) {
-            Set<NumLen> setNumLen = new HashSet<>();
-            while(sc.hasNextLine()) {
+
+            Map<Integer, Integer> lenNumMap = new HashMap<>();
+            while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] elements = line.trim().substring(1).trim().split(Constants.REGEX);
+
                 int len = getLen(elements);
-                NumLen numLen = new NumLen(len);
-                setNumLen.add(numLen);
+                int num = 1;
+
+                if (!lenNumMap.containsKey(len)) {
+                    lenNumMap.put(len, num);
+                } else {
+                    lenNumMap.put(len, lenNumMap.get(len) + 1);
+                }
             }
+            printMap(lenNumMap);
 
-            List<NumLen> numLens = new ArrayList<>(setNumLen);
+            List<Map.Entry<Integer, Integer>> list = new ArrayList(lenNumMap.entrySet());
 
-            printList(numLens);
-
-            Collections.sort(numLens, new Comparator<NumLen>() {
+            Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
                 @Override
-                public int compare(NumLen o1, NumLen o2) {
-                    return o2.getNum() - o1.getNum();
+                public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                    return 0;
                 }
             });
 
-            printList(numLens);
-
+            printCollection(list);
         } catch (FileNotFoundException e) {
             System.err.println(Constants.FILE_NOT_FOUND);
         }
     }
 
-    private static void printList(List<NumLen> segments) {
-        for (NumLen segment : segments) {
-            System.out.println(segment);
+    private static <K, V> void printMap(Map<K, V> map) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + Constants.DELIMITER + entry.getValue());
+        }
+    }
+
+    private static <K, V> void printCollection(List<Map.Entry<K, V>> list) {
+        for (Map.Entry<K, V> entry : list) {
+            System.out.println(entry.getKey() + Constants.DELIMITER + entry.getValue());
         }
     }
 
