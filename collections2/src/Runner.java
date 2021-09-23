@@ -1,9 +1,9 @@
+import by.gsu.epamlab.ValueMapComparator;
 import constants.Constants;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
-import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
@@ -23,32 +23,19 @@ public class Runner {
                     lenNumMap.put(len, lenNumMap.get(len) + 1);
                 }
             }
-            printMap(lenNumMap);
 
-            List<Map.Entry<Integer, Integer>> list = new ArrayList(lenNumMap.entrySet());
+            SortedMap<Integer, Integer> sortedMapLenNum = new TreeMap<Integer, Integer>(new ValueMapComparator(lenNumMap));
+            sortedMapLenNum.putAll(lenNumMap);
+            printCollection(sortedMapLenNum.entrySet());
 
-            Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
-                @Override
-                public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
-                    return o2.getValue() - o1.getValue();
-                }
-            });
-
-            printCollection(list);
         } catch (FileNotFoundException e) {
             System.err.println(Constants.FILE_NOT_FOUND);
         }
     }
 
-    private static <K, V> void printMap(Map<K, V> map) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + Constants.DELIMITER + entry.getValue());
-        }
-    }
-
-    private static <K, V> void printCollection(List<Map.Entry<K, V>> list) {
-        for (Map.Entry<K, V> entry : list) {
-            System.out.println(entry.getKey() + Constants.DELIMITER + entry.getValue());
+    private static void printCollection(Collection<Map.Entry<Integer, Integer>> entrySet) {
+        for (Map.Entry<Integer,Integer> pair : entrySet) {
+            System.out.println(pair.getKey() + Constants.DELIMITER + pair.getValue());
         }
     }
 
