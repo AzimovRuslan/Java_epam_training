@@ -23,7 +23,7 @@ public class Runner {
                 deleteFrequencies(preparedStatement, connection);
 
                 while (resSetCoords.next()) {
-                    int lenSegment = Math.round(Math.abs(resSetCoords.getFloat(2) - resSetCoords.getFloat(1)));
+                    int lenSegment = Math.round(Math.abs(resSetCoords.getFloat(Constants.SECOND_ELEMENT) - resSetCoords.getFloat(Constants.FIRST_ELEMENT)));
                     int numSegment = 1;
                     insertFrequencies(preparedStatement, connection, Constants.INSERT_INTO_FREQUENCIES, lenSegment, numSegment);
                 }
@@ -33,7 +33,7 @@ public class Runner {
                 List<Frequence> list = new ArrayList<>();
 
                 while (resSetFreq.next()) {
-                    list.add(new Frequence(resSetFreq.getInt(1), resSetFreq.getInt(2)));
+                    list.add(new Frequence(resSetFreq.getInt(Constants.FIRST_ELEMENT), resSetFreq.getInt(Constants.SECOND_ELEMENT)));
                 }
 
                 deleteFrequencies(preparedStatement, connection);
@@ -45,7 +45,7 @@ public class Runner {
                 ResultSet resSetFreq1 = statement.executeQuery(Constants.SELECT_FROM_FREQUENCIES_WHERE_LEN_MORE_NUM);
 
                 while(resSetFreq1.next()) {
-                    System.out.println(resSetFreq1.getInt(1) + Constants.DELIMITER + resSetFreq1.getInt(2));
+                    System.out.println(resSetFreq1.getInt(Constants.FIRST_ELEMENT) + Constants.DELIMITER + resSetFreq1.getInt(Constants.SECOND_ELEMENT));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -58,8 +58,8 @@ public class Runner {
     private static void insertFrequencies(PreparedStatement preparedStatement, Connection connection, String query, int len, int num) {
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, len);
-            preparedStatement.setInt(2, num);
+            preparedStatement.setInt(Constants.FIRST_ELEMENT, len);
+            preparedStatement.setInt(Constants.SECOND_ELEMENT, num);
 
             preparedStatement.execute();
         } catch (SQLException e) {

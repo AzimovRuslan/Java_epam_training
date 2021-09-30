@@ -10,4 +10,7 @@ public class Constants {
     public static String DELETE_FROM_FREQUENCIES = "delete from frequencies";
     public static String SELECT_FROM_FREQUENCIES_WHERE_LEN_MORE_NUM = "SELECT * FROM frequencies WHERE len>num";
     public static String GROUP_BY_FOR_FREQUENCIES = "select len, sum(num) as num from frequencies group by len";
+    public static int FIRST_ELEMENT = 1;
+    public static int SECOND_ELEMENT = 2;
+
 }
