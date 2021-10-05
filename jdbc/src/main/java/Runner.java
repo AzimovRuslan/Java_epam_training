@@ -7,9 +7,6 @@ import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
-        String dbUrl = "jdbc:mysql://localhost:3306/segments";
-        String user = "root";
-        String password = "Ruslan4ik2001";
         try {
             Driver driver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(driver);
@@ -18,7 +15,7 @@ public class Runner {
             Statement statement = null;
             ResultSet resultSet = null;
             try {
-                connection = DriverManager.getConnection(dbUrl, user, password);
+                connection = DriverManager.getConnection(Constants.URL, Constants.USER, Constants.PASSWORD);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(Constants.SELECT_FROM_COORDINATES);
 
