@@ -27,6 +27,6 @@ public class Frequence {
 
     @Override
     public String toString() {
-        return len + ";" + num;
+        return len + Constants.DELIMITER + num;
     }
 }

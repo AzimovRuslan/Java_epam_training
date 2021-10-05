@@ -7,72 +7,58 @@ import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
-        String dbUrl = Constants.URL;
-        String user = Constants.USER;
-        String password = Constants.PASSWORD;
+        String dbUrl = "jdbc:mysql://localhost:3306/segments";
+        String user = "root";
+        String password = "Ruslan4ik2001";
         try {
             Driver driver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(driver);
             PreparedStatement preparedStatement = null;
-            Connection connection;
+            Connection connection = null;
+            Statement statement = null;
+            ResultSet resultSet = null;
             try {
                 connection = DriverManager.getConnection(dbUrl, user, password);
-                Statement statement = connection.createStatement();
-                ResultSet resSetCoords = statement.executeQuery(Constants.SELECT_FROM_COORDINATES);
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery(Constants.SELECT_FROM_COORDINATES);
 
-                deleteFrequencies(preparedStatement, connection);
+                List<Frequence> frequencies = new ArrayList<>();
 
-                while (resSetCoords.next()) {
-                    int lenSegment = Math.round(Math.abs(resSetCoords.getFloat(Constants.SECOND_ELEMENT) - resSetCoords.getFloat(Constants.FIRST_ELEMENT)));
-                    int numSegment = 1;
-                    insertFrequencies(preparedStatement, connection, Constants.INSERT_INTO_FREQUENCIES, lenSegment, numSegment);
+                while (resultSet.next()) {
+                    int len = resultSet.getInt(1);
+                    int num = resultSet.getInt(2);
+                    frequencies.add(new Frequence(len, num));
                 }
 
-                ResultSet resSetFreq = statement.executeQuery(Constants.GROUP_BY_FOR_FREQUENCIES);
+                preparedStatement = connection.prepareStatement(Constants.DELETE_FROM_FREQUENCIES);
+                preparedStatement.execute();
 
-                List<Frequence> list = new ArrayList<>();
-
-                while (resSetFreq.next()) {
-                    list.add(new Frequence(resSetFreq.getInt(Constants.FIRST_ELEMENT), resSetFreq.getInt(Constants.SECOND_ELEMENT)));
+                for (Frequence frequence : frequencies) {
+                    preparedStatement = connection.prepareStatement(Constants.INSERT_INTO_FREQUENCIES);
+                    preparedStatement.setInt(Constants.FIRST_ELEMENT, frequence.getLen());
+                    preparedStatement.setInt(Constants.SECOND_ELEMENT, frequence.getNum());
+                    preparedStatement.execute();
                 }
 
-                deleteFrequencies(preparedStatement, connection);
-
-                for (Frequence frequence : list) {
-                    insertFrequencies(preparedStatement, connection, Constants.INSERT_INTO_FREQUENCIES, frequence.getLen(), frequence.getNum());
+                ResultSet resultSetFrequencies = statement.executeQuery(Constants.SELECT_FROM_FREQUENCIES_WHERE_LEN_MORE_NUM);
+                while(resultSetFrequencies.next()) {
+                    System.out.println(resultSetFrequencies.getInt(Constants.FIRST_ELEMENT) + Constants.DELIMITER + resultSetFrequencies.getInt(Constants.SECOND_ELEMENT));
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
                 }
 
-                ResultSet resSetFreq1 = statement.executeQuery(Constants.SELECT_FROM_FREQUENCIES_WHERE_LEN_MORE_NUM);
-
-                while(resSetFreq1.next()) {
-                    System.out.println(resSetFreq1.getInt(Constants.FIRST_ELEMENT) + Constants.DELIMITER + resSetFreq1.getInt(Constants.SECOND_ELEMENT));
+                if (statement != null) {
+                    statement.close();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+                if (resultSet != null && !resultSet.isClosed()) {
+                    resultSet.close();
+                }
             }
         } catch (SQLException e) {
-            System.err.println("Не удалось загрузить класс драйвер");
-        }
-    }
-
-    private static void insertFrequencies(PreparedStatement preparedStatement, Connection connection, String query, int len, int num) {
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(Constants.FIRST_ELEMENT, len);
-            preparedStatement.setInt(Constants.SECOND_ELEMENT, num);
-
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void deleteFrequencies(PreparedStatement preparedStatement, Connection connection) {
-        try {
-            preparedStatement = connection.prepareStatement(Constants.DELETE_FROM_FREQUENCIES);
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println(Constants.FAILED_LOAD_DRIVER);
         }
     }
 }
