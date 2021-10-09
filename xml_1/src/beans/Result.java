@@ -1,4 +1,6 @@
-package by.gsu.epamlab;
+package beans;
+
+import by.gsu.epamlab.Constants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,7 +12,7 @@ public class Result {
     private Date date;
     private int mark;
 
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    private static final SimpleDateFormat FORMAT = new SimpleDateFormat(Constants.DATE_FORMAT);
 
     public Result(String login, String test, Date date, int mark) {
         this.login = login;
@@ -69,6 +71,6 @@ public class Result {
     }
 
     public String outMark() {
-        return String.format("%d.%01d", mark / 10, mark % 10);
+        return String.format(Constants.MARK_FORMAT, mark / Constants.DENOMINATOR_FOR_MARK, mark % Constants.DENOMINATOR_FOR_MARK);
     }
 }

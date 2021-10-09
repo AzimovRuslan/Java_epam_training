@@ -13,4 +13,7 @@ public class Constants {
     public static int SECOND_ELEMENT = 1;
     public static int THIRD_ELEMENT = 2;
     public static String SPLIT_POINT = "\\.";
+    public static String DATE_FORMAT = "dd.MM.yyyy";
+    public static String MARK_FORMAT = "%d.%01d";
+    public static int DENOMINATOR_FOR_MARK = 10;
 }

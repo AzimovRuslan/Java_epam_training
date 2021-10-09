@@ -1,14 +1,14 @@
-package by.gsu.epamlab;
+package utils;
 
+import by.gsu.epamlab.Constants;
+import beans.Result;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ResultHandler extends DefaultHandler {
     private enum ResultEnum {
