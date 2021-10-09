@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name = "results">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="student" type="Student" minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="Student">
+        <xsd:sequence>
+            <xsd:element name="login" type="Login" />
+            <xsd:element name="tests" type="Tests" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="Login">
+        <xsd:restriction base="xsd:ID">
+            <xsd:pattern value="[a-zA-Z][a-zA-Z0-9_]*" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:complexType name="Tests">
+        <xsd:sequence>
+            <xsd:element name="test" type="Test" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Test">
+        <xsd:attribute name ="name" type="xsd:string" use="required" />
+        <xsd:attribute name ="date" type="xsd:date" use="required" />
+        <xsd:attribute name ="mark" type="Mark" use="required" />
+    </xsd:complexType>
+    <xsd:simpleType name="Mark">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:pattern value="\d\.\d|10\.0" />
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>
