@@ -1,6 +1,6 @@
 package beans;
 
-import by.gsu.epamlab.Constants;
+import constants.Constants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,8 +12,6 @@ public class Result {
     private Date date;
     private int mark;
 
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat(Constants.DATE_FORMAT);
-
     public Result(String login, String test, Date date, int mark) {
         this.login = login;
         this.test = test;
@@ -22,12 +20,11 @@ public class Result {
     }
 
     public Result() {
-        this("", "", new Date(0), 0);
     }
 
     @Override
     public String toString() {
-        return login + Constants.DELIMITER + test + Constants.DELIMITER + outDate() + Constants.DELIMITER + outMark();
+        return login + Constants.DELIMITER + test + Constants.DELIMITER + getStringDate() + Constants.DELIMITER + getStringMark();
     }
 
     public String getLogin() {
@@ -54,23 +51,23 @@ public class Result {
         this.test = test;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String stringDate) {
+        try {
+            this.date = Constants.IN_DATE_FORMAT.parse(stringDate);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public void setDate(String date) throws ParseException {
-        this.date = FORMAT.parse(date);
+    public void setMark(String stringMark) {
+        this.mark = Integer.parseInt(stringMark.replace(Constants.POINT, ""));
     }
 
-    public void setMark(int mark) {
-        this.mark = mark;
+    public String getStringDate() {
+        return Constants.OUT_DATE_FORMAT.format(date);
     }
 
-    public String outDate() {
-        return FORMAT.format(date);
-    }
-
-    public String outMark() {
-        return String.format(Constants.MARK_FORMAT, mark / Constants.DENOMINATOR_FOR_MARK, mark % Constants.DENOMINATOR_FOR_MARK);
+    public String getStringMark() {
+        return (mark / Constants.DENOMINATOR_FOR_MARK) + Constants.POINT + (mark % Constants.DENOMINATOR_FOR_MARK);
     }
 }

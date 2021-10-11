@@ -1,26 +1,30 @@
-import by.gsu.epamlab.Constants;
-import beans.Result;
+import constants.Constants;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 import utils.ResultHandler;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
+import java.util.Collection;
 
 public class Runner {
     public static void main(String[] args){
         try{
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser parser = factory.newSAXParser();
+            XMLReader reader = XMLReaderFactory.createXMLReader();
             ResultHandler handler = new ResultHandler();
-            parser.parse(Constants.FILENAME, handler);
+            reader.setContentHandler(handler);
+            reader.parse(Constants.FILENAME);
+            printCollection(handler.getResults());
+        } catch (SAXException e){
+            System.err.println(Constants.ERROR_SAX_PARSER + e);
+        } catch (IOException e) {
+            System.err.println(Constants.ERROR_IO + e);
+        }
+    }
 
-            for(Result result : handler.getResults()) {
-                System.out.println(result);
-            }
-        } catch (ParserConfigurationException | SAXException | IOException e){
-            System.out.println(e.getMessage());
+    private static <T> void printCollection(Collection<T> collection) {
+        for(T result : collection) {
+            System.out.println(result);
         }
     }
 }

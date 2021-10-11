@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:noNamespaceSchemaLocation="results.xsd">
+<tns:results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:tns="http://www.example.org/results"
+             xsi:schemaLocation="http://www.example.org/results results.xsd">
     <student>
         <login>cool</login>
         <tests>
@@ -18,4 +19,4 @@
             <test name="collections" date="2013-03-28" mark="6.4"/>
         </tests>
     </student>
-</results>
+</tns:results>
