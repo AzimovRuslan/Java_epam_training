@@ -44,12 +44,18 @@ public class Constants {
     public static String FAILED_TO_DELETE = "failed to delete =>";
     public static String FAILED_TO_INITIALIZATION_LIST = "failed to initialization list =>";
     public static String FAILED_INITIALIZATION_DB = "failed initialization database =>";
+    public static String FAILED_TO_GET_STRING = "failed to get string =>";
+    public static String FAILED_TO_GET_IF = "failed to get id =>";
+    public static String FAILED_CLOSE_CONNECTION = "failed close connection =>";
+
 
     public static String DELETE_LOGINS = "DELETE FROM results.logins";
     public static String DELETE_TESTS = "DELETE FROM results.tests";
     public static String DELETE_RESULTS = "DELETE FROM results.results";
     public static String INSERT_INTO_LOGINS = "INSERT INTO logins (name) VALUES (?)";
+    public static String SELECT_LOGINS = "SELECT * FROM logins WHERE name = ?";
     public static String INSERT_INTO_TESTS = "INSERT INTO tests (name) VALUES (?)";
+    public static String SELECT_TESTS = "SELECT * FROM tests WHERE name = ?";
     public static String INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, date, mark) VALUES (?, ?, ?, ?)";
     public static String GET_ID_LOGIN = "SELECT idLogin FROM results.logins ORDER BY idLogin DESC LIMIT 1";
     public static String GET_ID_TEST = "SELECT idTest FROM results.tests ORDER BY idTest DESC LIMIT 1";

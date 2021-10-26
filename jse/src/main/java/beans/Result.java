@@ -11,14 +11,19 @@ public class Result {
     private String test;
     private java.sql.Date date;
     private int mark;
-    private String strMark;
 
     public Result(String login, String test, String date, String mark) {
         this.login = login;
         this.test = test;
         this.date = convertDate(date);
         this.mark = convertMark(mark);
-        this.strMark = mark;
+    }
+
+    public Result(String login, String test, java.sql.Date date, int mark) {
+        this.login = login;
+        this.test = test;
+        this.date = date;
+        this.mark = mark;
     }
 
     public Result() {}

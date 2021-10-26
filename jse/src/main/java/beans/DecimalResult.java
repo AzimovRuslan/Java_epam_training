@@ -3,6 +3,14 @@ package beans;
 import constants.Constants;
 
 public class DecimalResult extends Result{
+    public DecimalResult(String login, String name, java.sql.Date date, int mark) {
+        super(login, name, date, mark);
+    }
+
+    public DecimalResult(String login, String name, String date, String mark) {
+        super(login, name, date, mark);
+    }
+
     public DecimalResult() {}
 
     @Override

@@ -1,18 +1,19 @@
 package utils;
 
-import beans.DecimalResult;
 import beans.Result;
 import constants.Constants;
+import factories.ResultFactory;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResultHandler extends DefaultHandler {
-    public ResultHandler() {
+    private ResultFactory factory;
 
+    public ResultHandler(ResultFactory factory) {
+        this.factory = factory;
     }
 
     private enum ResultEnum {
@@ -29,14 +30,10 @@ public class ResultHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes){
         currentEnum = ResultEnum.valueOf(localName.toUpperCase());
         if (currentEnum == ResultEnum.TEST) {
-            DecimalResult result = new DecimalResult();
-            result.setLogin(login);
-            result.setTest(attributes.getValue(Constants.NAME_IND));
-            result.setDate(attributes.getValue(Constants.DATE_IND));
-            result.setMark(attributes.getValue(Constants.MARK_IND));
+            Result result = factory.getResultFromFactory(login, attributes.getValue(Constants.NAME_IND), attributes.getValue(Constants.DATE_IND), attributes.getValue(Constants.MARK_IND));
             resultList.add(result);
         }
     }

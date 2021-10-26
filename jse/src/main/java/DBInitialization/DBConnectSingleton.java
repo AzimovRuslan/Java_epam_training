@@ -6,12 +6,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnect {
-    private final static Connection CONNECTION = getConnection();
+public class DBConnectSingleton {
+    private static Connection CONNECTION = getConnection();
 
-    public DBConnect(){ }
+    public DBConnectSingleton(){ }
 
     public static Connection getCONNECTION() {
+        if (CONNECTION == null) {
+            CONNECTION = getCONNECTION();
+        }
         return CONNECTION;
     }
 
@@ -20,6 +23,16 @@ public class DBConnect {
             return DriverManager.getConnection(Constants.URL, Constants.USER, Constants.PASSWORD);
         } catch (SQLException e) {
             throw new RuntimeException(Constants.CONNECTION_ERROR);
+        }
+    }
+
+    public static void closeConnection() {
+        try {
+            if (CONNECTION != null) {
+                CONNECTION.close();
+            }
+        } catch (SQLException e) {
+            System.err.println(Constants.FAILED_CLOSE_CONNECTION + e);
         }
     }
 }

@@ -2,8 +2,18 @@ package beans;
 
 import constants.Constants;
 
+import java.sql.Date;
+
 public class HalfResult extends Result{
     public HalfResult() {}
+
+    public HalfResult(String login, String test, Date date, int mark) {
+        super(login, test, date, mark);
+    }
+
+    public HalfResult(String login, String test, String date, String mark) {
+        super(login, test, date, mark);
+    }
 
     @Override
     public String toString() {
