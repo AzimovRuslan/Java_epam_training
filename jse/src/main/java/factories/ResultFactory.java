@@ -1,7 +1,6 @@
 package factories;
 
 import DBInitialization.ResultImplCsv;
-import DBInitialization.ResultImplXml;
 import beans.Result;
 import interfaces.ResultDao;
 

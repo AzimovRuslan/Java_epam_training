@@ -1,11 +1,12 @@
 package factories;
 
+import DBInitialization.ResultImplCsv;
 import beans.Result;
 import interfaces.ResultDao;
 
 import java.sql.Date;
 
-public class HalfResult extends ResultFactory{
+public class HalfResultFactory extends ResultFactory{
     @Override
     public Result getResultFromFactory(String login, String test, Date date, int mark) {
         return new beans.HalfResult(login, test, date, mark);
@@ -18,6 +19,6 @@ public class HalfResult extends ResultFactory{
 
     @Override
     public ResultDao getResultImplFromFactory(String filename) {
-        return super.getResultImplFromFactory(filename);
+        return new ResultImplCsv(filename, this);
     }
 }

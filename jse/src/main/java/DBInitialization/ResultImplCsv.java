@@ -29,7 +29,7 @@ public class ResultImplCsv implements ResultDao {
     public Result nextResult() {
         String[] elements = scanner.nextLine().split(Constants.DELIMITER);
 
-        return factory.getResultFromFactory(elements[Constants.FIRST_ELEMENT], elements[Constants.SECOND_ELEMENT], elements[Constants.THIRD_ELEMENT], elements[Constants.FOUR_ELEMENT]);
+        return factory.getResultFromFactory(elements[Constants.FIRST_INDEX], elements[Constants.SECOND_INDEX], elements[Constants.THIRD_INDEX], elements[Constants.FOUR_INDEX]);
     }
 
     @Override

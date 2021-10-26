@@ -4,7 +4,7 @@ import DBInitialization.ResultImplXml;
 import beans.Result;
 import interfaces.ResultDao;
 
-public class DecimalResult extends ResultFactory{
+public class DecimalResultFactory extends ResultFactory{
     @Override
     public Result getResultFromFactory(String login, String test, java.sql.Date date, int mark) {
         return new beans.DecimalResult(login, test, date, mark);
