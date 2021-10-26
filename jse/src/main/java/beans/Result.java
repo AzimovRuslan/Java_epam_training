@@ -3,13 +3,13 @@ package beans;
 import constants.Constants;
 
 import java.text.ParseException;
-import java.util.Date;
+import java.sql.Date;
 
 public class Result {
     private int idResult = 0;
     private String login;
     private String test;
-    private java.sql.Date date;
+    private Date date;
     private int mark;
 
     public Result(String login, String test, String date, String mark) {
@@ -36,7 +36,7 @@ public class Result {
         return test;
     }
 
-    public java.sql.Date getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -72,10 +72,9 @@ public class Result {
         this.mark = convertMark(mark);
     }
 
-    public java.sql.Date convertDate(String stringDate) {
+    public Date convertDate(String stringDate) {
         try {
-            Date utilStartDate = Constants.IN_DATE_FORMAT.parse(stringDate);
-            return new java.sql.Date(utilStartDate.getTime());
+            return new Date(Constants.IN_DATE_FORMAT.parse(stringDate).getTime());
         } catch (ParseException e) {
             throw new IllegalArgumentException();
         }

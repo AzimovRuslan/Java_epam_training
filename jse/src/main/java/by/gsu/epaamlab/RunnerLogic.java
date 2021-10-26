@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
 import java.util.*;
 
 public class RunnerLogic {
@@ -31,7 +32,7 @@ public class RunnerLogic {
             loader();
             getMeanMark();
             initializationListOrderByDate();
-            printCollection(resultList);
+            printResults(resultList);
             printTestsResultsInTheLastDay();
         } finally {
             DBConnectSingleton.closeConnection();
@@ -69,9 +70,9 @@ public class RunnerLogic {
         }
     }
 
-    public <T> void printCollection(Collection<T> collection) {
-        if (collection.size() > 0) {
-            for(T result : collection) {
+    public void printResults(List<Result> results) {
+        if (results.size() > 0) {
+            for(Result result : results) {
                 System.out.println(result);
             }
         } else {
@@ -83,7 +84,7 @@ public class RunnerLogic {
         if (resultList.size() > 0) {
             ListIterator<Result> iterator = resultList.listIterator(resultList.size());
             Result result = iterator.previous();
-            java.sql.Date lastDate = result.getDate();
+            Date lastDate = result.getDate();
             System.out.println(Constants.TEST_RESULTS_IN_THE_LAST_DAY);
             System.out.println(result);
 

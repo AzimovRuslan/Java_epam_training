@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat;
 
 public class Constants {
     public static String URL = "jdbc:mysql://localhost:3306/results";
-    public static String USER = "root";
-    public static String PASSWORD = "Ruslan4ik2001";
+    public static String USER = "jse";
+    public static String PASSWORD = "jse";
     public static String FILENAME_XML = "src/main/java/results.xml";
     public static String FILENAME_CSV = "src/main/java/results.csv";
     public static String FILENAME_CSV2 = "src/main/java/results2.csv";
@@ -39,26 +39,16 @@ public class Constants {
     public static String ERROR_IO = "Error I/O stream =>";
     public static String CONNECTION_ERROR = "Connection error =>";
     public static String FILE_NOT_FOUND = "file not found =>";
-    public static String FAILED_TO_WRITE_DATA = "failed to write data to the database =>";
     public static String CANT_GET_MEAN_MARK = "cant get mean mark =>";
-    public static String FAILED_TO_DELETE = "failed to delete =>";
     public static String FAILED_TO_INITIALIZATION_LIST = "failed to initialization list =>";
     public static String FAILED_INITIALIZATION_DB = "failed initialization database =>";
-    public static String FAILED_TO_GET_STRING = "failed to get string =>";
-    public static String FAILED_TO_GET_IF = "failed to get id =>";
     public static String FAILED_CLOSE_CONNECTION = "failed close connection =>";
 
-
-    public static String DELETE_LOGINS = "DELETE FROM results.logins";
-    public static String DELETE_TESTS = "DELETE FROM results.tests";
-    public static String DELETE_RESULTS = "DELETE FROM results.results";
     public static String INSERT_INTO_LOGINS = "INSERT INTO logins (name) VALUES (?)";
     public static String SELECT_LOGINS = "SELECT * FROM logins WHERE name = ?";
     public static String INSERT_INTO_TESTS = "INSERT INTO tests (name) VALUES (?)";
     public static String SELECT_TESTS = "SELECT * FROM tests WHERE name = ?";
     public static String INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, date, mark) VALUES (?, ?, ?, ?)";
-    public static String GET_ID_LOGIN = "SELECT idLogin FROM results.logins ORDER BY idLogin DESC LIMIT 1";
-    public static String GET_ID_TEST = "SELECT idTest FROM results.tests ORDER BY idTest DESC LIMIT 1";
     public static String GET_MEAN_MARK = "select logins.name, round(avg(mark / 10), 2) as meanMark from results join logins on logins.idLogin = results.loginId group by logins.name order by meanMark desc";
     public static String GET_TESTS_RESULTS_FOR_THE_CURRENT_MONTH = "select * from results join logins on logins.idLogin = results.loginId join tests on tests.idTest = results.testId where month(date) = month(now()) order by date";
 }
