@@ -4,10 +4,11 @@ import beans.Result;
 import constants.Constants;
 import interfaces.ResultDao;
 
+import java.net.ConnectException;
 import java.sql.*;
 
 public class ResultsLoader {
-    public static void loadResults(ResultDao reader, Connection connection){
+    public static void loadResults(ResultDao reader, Connection connection) throws ConnectException {
         try (PreparedStatement psInsertResults = connection.prepareStatement(Constants.INSERT_INTO_RESULTS);
              PreparedStatement psInsertLogins = connection.prepareStatement(Constants.INSERT_INTO_LOGINS);
              PreparedStatement psSelectLogins = connection.prepareStatement(Constants.SELECT_LOGINS);
@@ -30,7 +31,7 @@ public class ResultsLoader {
             }
             psInsertResults.executeBatch();
         } catch (SQLException e) {
-            System.err.println(Constants.FAILED_INITIALIZATION_DB + e);
+            throw new ConnectException(Constants.FAILED_INITIALIZATION_DB);
         }
     }
 

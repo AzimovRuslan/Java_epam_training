@@ -76,7 +76,7 @@ public class Result {
         try {
             return new Date(Constants.IN_DATE_FORMAT.parse(stringDate).getTime());
         } catch (ParseException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.ERROR_PARSE_DATE);
         }
     }
 

@@ -2,6 +2,7 @@ package factories;
 
 import beans.HalfResult;
 import beans.Result;
+import exceptions.SourceException;
 import interfaces.ResultDao;
 
 import java.sql.Date;
@@ -18,7 +19,7 @@ public class HalfResultFactory extends ResultFactory{
     }
 
     @Override
-    public ResultDao getResultImplFromFactory(String filename) {
+    public ResultDao getResultImplFromFactory(String filename) throws SourceException {
         return super.getResultImplFromFactory(filename);
     }
 }

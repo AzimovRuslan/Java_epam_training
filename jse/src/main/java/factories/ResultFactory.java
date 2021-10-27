@@ -2,6 +2,7 @@ package factories;
 
 import DBInitialization.ResultImplCsv;
 import beans.Result;
+import exceptions.SourceException;
 import interfaces.ResultDao;
 import java.sql.Date;
 
@@ -14,7 +15,7 @@ public class ResultFactory {
         return new Result(login, test, date, mark);
     }
 
-    public ResultDao getResultImplFromFactory(String filename) {
+    public ResultDao getResultImplFromFactory(String filename) throws SourceException {
         return new ResultImplCsv(filename, this);
     }
 }

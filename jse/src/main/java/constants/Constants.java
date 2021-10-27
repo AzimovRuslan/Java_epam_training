@@ -35,14 +35,15 @@ public class Constants {
     public static int DENOMINATOR_FOR_MARK = 10;
     public static String FORMAT_FOR_MARK = "%d.%01d";
 
-    public static String ERROR_SAX_PARSER = "Error SAX parse =>";
     public static String ERROR_IO = "Error I/O stream =>";
     public static String CONNECTION_ERROR = "Connection error =>";
-    public static String FILE_NOT_FOUND = "file not found =>";
     public static String CANT_GET_MEAN_MARK = "cant get mean mark =>";
-    public static String FAILED_TO_INITIALIZATION_LIST = "failed to initialization list =>";
     public static String FAILED_INITIALIZATION_DB = "failed initialization database =>";
     public static String FAILED_CLOSE_CONNECTION = "failed close connection =>";
+    public static String ERROR_PARSE_DATE = "failed to parse date =>";
+    public static String WRONG_DATA_XML = "wrong data in xml =>";
+    public static String ERROR_DB_LOAD = "error db load =>";
+    public static String ERROR_OPEN_SOURCE = "error open source =>";
 
     public static String INSERT_INTO_LOGINS = "INSERT INTO logins (name) VALUES (?)";
     public static String SELECT_LOGINS = "SELECT * FROM logins WHERE name = ?";

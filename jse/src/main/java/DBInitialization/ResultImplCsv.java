@@ -2,6 +2,7 @@ package DBInitialization;
 
 import beans.Result;
 import constants.Constants;
+import exceptions.SourceException;
 import factories.ResultFactory;
 import interfaces.ResultDao;
 
@@ -14,14 +15,14 @@ public class ResultImplCsv implements ResultDao {
     private String filename;
     private ResultFactory factory;
 
-    public ResultImplCsv(String filename, ResultFactory factory) {
+    public ResultImplCsv(String filename, ResultFactory factory) throws SourceException {
         this.filename = filename;
 
         try {
             scanner = new Scanner(new FileReader(filename));
             this.factory = factory;
         } catch (FileNotFoundException e) {
-            System.err.println(Constants.FILE_NOT_FOUND);
+            throw new SourceException(e.getMessage());
         }
     }
 

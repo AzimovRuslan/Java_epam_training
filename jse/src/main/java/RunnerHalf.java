@@ -6,7 +6,6 @@ import factories.ResultFactory;
 public class RunnerHalf {
     public static void main(String[] args) {
         ResultFactory factory = new HalfResultFactory();
-        RunnerLogic runnerLogic = new RunnerLogic(Constants.FILENAME_CSV2, factory);
-        runnerLogic.execute();
+        RunnerLogic.execute(Constants.FILENAME_CSV2, factory);
     }
 }

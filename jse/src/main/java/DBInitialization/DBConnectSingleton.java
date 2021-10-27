@@ -1,38 +1,37 @@
 package DBInitialization;
 
 import constants.Constants;
+import exceptions.InitRuntimeException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnectSingleton {
-    private static Connection CONNECTION = getConnection();
+    private final static Connection CONNECTION = getInstance();
 
-    public DBConnectSingleton(){ }
+    private DBConnectSingleton(){ }
 
-    public static Connection getCONNECTION() {
-        if (CONNECTION == null) {
-            CONNECTION = getCONNECTION();
-        }
-        return CONNECTION;
-    }
-
-    private static Connection getConnection() {
+    private static Connection getInstance() {
         try {
             return DriverManager.getConnection(Constants.URL, Constants.USER, Constants.PASSWORD);
         } catch (SQLException e) {
-            throw new RuntimeException(Constants.CONNECTION_ERROR);
+            throw new InitRuntimeException(Constants.CONNECTION_ERROR);
         }
     }
 
+    public static Connection getConnection() {
+        return CONNECTION;
+    }
+
     public static void closeConnection() {
-        try {
-            if (CONNECTION != null) {
+        if(CONNECTION != null) {
+            try {
                 CONNECTION.close();
+            } catch (SQLException e) {
+                System.err.println(Constants.FAILED_CLOSE_CONNECTION);
             }
-        } catch (SQLException e) {
-            System.err.println(Constants.FAILED_CLOSE_CONNECTION + e);
         }
+
     }
 }

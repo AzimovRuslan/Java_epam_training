@@ -2,6 +2,8 @@ package DBInitialization;
 
 import beans.Result;
 import constants.Constants;
+import exceptions.ParseRuntimeException;
+import exceptions.SourceException;
 import factories.ResultFactory;
 import interfaces.ResultDao;
 import org.xml.sax.SAXException;
@@ -17,7 +19,7 @@ public class ResultImplXml implements ResultDao {
     private Iterator<Result> iterator;
     private ResultFactory factory;
 
-    public ResultImplXml(String filename, ResultFactory factory) {
+    public ResultImplXml(String filename, ResultFactory factory) throws SourceException {
         this.factory = factory;
         this.filename = filename;
         try {
@@ -27,9 +29,9 @@ public class ResultImplXml implements ResultDao {
             reader.parse(filename);
             iterator = handler.getResultList().iterator();
         } catch (SAXException e){
-            System.err.println(Constants.ERROR_SAX_PARSER + e);
+            throw new ParseRuntimeException(Constants.WRONG_DATA_XML);
         } catch (IOException e) {
-            System.err.println(Constants.ERROR_IO + e);
+            throw new SourceException(e.getMessage());
         }
     }
     @Override
