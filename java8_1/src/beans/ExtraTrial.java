@@ -11,9 +11,13 @@ public class ExtraTrial extends Trial{
         this.mark3 = mark3;
     }
 
+    public ExtraTrial(ExtraTrial extraTrial) {
+        super(extraTrial);
+    }
+
     @Override
     public String getResult() {
-        String result = "";
+        String result = Constants.EMPTY;
         if ((getMark1() + getMark2()) >= PASSING_SCORE && mark3 >= PASSING_SCORE) {
             result = Constants.PASSED;
         } else {
@@ -26,5 +30,10 @@ public class ExtraTrial extends Trial{
     public void clearMark() {
         super.clearMark();
         mark3 = 0;
+    }
+
+    @Override
+    public Trial getCopy() {
+        return new ExtraTrial(this);
     }
 }

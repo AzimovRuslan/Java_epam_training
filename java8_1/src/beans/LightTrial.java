@@ -9,14 +9,23 @@ public class LightTrial extends Trial{
         super(trainee, mark1, mark2);
     }
 
+    public LightTrial(LightTrial lightTrial) {
+        super(lightTrial);
+    }
+
     @Override
     public String getResult() {
-        String result = "";
+        String result = Constants.EMPTY;
         if (getMark1() >= PASSING_SCORE && getMark2() >= PASSING_SCORE) {
             result = Constants.PASSED;
         } else {
             result = Constants.FAILED;
         }
         return result;
+    }
+
+    @Override
+    public Trial getCopy() {
+        return new LightTrial(this);
     }
 }

@@ -8,14 +8,23 @@ public class StrongTrial extends Trial{
         super(trainee, mark1, mark2);
     }
 
+    public StrongTrial(StrongTrial strongTrial) {
+        super(strongTrial);
+    }
+
     @Override
     public String getResult() {
-        String result = "";
-        if (getMark1() / 2 + getMark2() >= getPassingScore()) {
+        String result = Constants.EMPTY;
+        if (getMark1() / Constants.HALF + getMark2() >= getPassingScore()) {
             result = Constants.PASSED;
         } else {
             result = Constants.FAILED;
         }
         return result;
+    }
+
+    @Override
+    public Trial getCopy() {
+        return new StrongTrial(this);
     }
 }

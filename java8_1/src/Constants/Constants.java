@@ -6,4 +6,6 @@ public class Constants {
     public final static String PASSED = "passed";
     public final static String FAILED = "failed";
     public final static String PASSED_COUNT = "passed count => ";
+    public final static String EMPTY = "";
+    public final static int HALF = 2;
 }

@@ -2,7 +2,7 @@ package beans;
 
 import Constants.Constants;
 
-public class Trial implements Comparable<Trial>{
+public class Trial {
     private Account trainee;
     private int mark1;
     private int mark2;
@@ -14,8 +14,11 @@ public class Trial implements Comparable<Trial>{
         this.mark2 = mark2;
     }
 
+    public Trial(Trial trial) {
+    }
+
     public String getResult() {
-        String result = "";
+        String result = Constants.EMPTY;
         if ((mark1 + mark2) >= PASSING_SCORE) {
             result = Constants.PASSED;
         } else {
@@ -41,11 +44,6 @@ public class Trial implements Comparable<Trial>{
         return trainee + Constants.TO_STRING_DELIMITER + getResult();
     }
 
-    @Override
-    public int compareTo(Trial o) {
-        return (mark1 + mark2) - (o.mark1 + o.mark2);
-    }
-
     public void clearMark() {
         mark1 = 0;
         mark2 = 0;
@@ -55,7 +53,7 @@ public class Trial implements Comparable<Trial>{
         return getResult().equals(Constants.PASSED);
     }
 
-    public int markSum() {
-        return mark2 + mark1;
+    public Trial getCopy() {
+        return new Trial(this);
     }
 }
